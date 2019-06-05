@@ -12,41 +12,42 @@ import config from '../../../utils/siteConfig'
 import { tags as tagsHelper } from '@tryghost/helpers'
 
 const ArticleMetaGhost = ({ data, settings, canonical }) => {
+    console.log("ghostpost->", data);
     const ghostPost = data
-    settings = settings.allGhostSettings.edges[0].node
+    settings = config
 
-    const author = getAuthorProperties(ghostPost.primary_author)
+    const author = getAuthorProperties(ghostPost.frontmatter.author.frontmatter)
     const publicTags = _.map(tagsHelper(ghostPost, { visibility: `public`, fn: tag => tag }), `name`)
     const primaryTag = publicTags[0] || ``
-    const shareImage = ghostPost.feature_image ? ghostPost.feature_image : _.get(settings, `cover_image`, null)
-    const publisherLogo = (settings.logo || config.siteIcon) ? url.resolve(config.siteUrl, (settings.logo || config.siteIcon)) : null
+    const shareImage = ghostPost.frontmatter.feature_image ? ghostPost.frontmatter.feature_image : _.get(config, `cover_image`, null)
+    const publisherLogo = config.siteIcon ? url.resolve(config.siteUrl, config.siteIcon) : null
 
     return (
         <>
             <Helmet>
-                <title>{ghostPost.meta_title || ghostPost.title}</title>
-                <meta name="description" content={ghostPost.meta_description || ghostPost.excerpt} />
+                <title>{ghostPost.frontmatter.meta_title || ghostPost.frontmatter.title}</title>
+                <meta name="description" content={ghostPost.frontmatter.meta_description || ghostPost.excerpt} />
                 <link rel="canonical" href={canonical} />
 
-                <meta property="og:site_name" content={settings.title} />
+                <meta property="og:site_name" content={config.title} />
                 <meta property="og:type" content="article" />
                 <meta property="og:title"
                     content={
-                        ghostPost.og_title ||
-                        ghostPost.meta_title ||
-                        ghostPost.title
+                        ghostPost.frontmatter.og_title ||
+                        ghostPost.frontmatter.meta_title ||
+                        ghostPost.frontmatter.title
                     }
                 />
                 <meta property="og:description"
                     content={
-                        ghostPost.og_description ||
-                        ghostPost.excerpt ||
-                        ghostPost.meta_description
+                        ghostPost.frontmatter.og_description ||
+                        ghostPost.frontmatter.meta_description ||
+                        ghostPost.frontmatter.excerpt
                     }
                 />
                 <meta property="og:url" content={canonical} />
-                <meta property="article:published_time" content={ghostPost.published_at} />
-                <meta property="article:modified_time" content={ghostPost.updated_at} />
+                <meta property="article:published_time" content={ghostPost.frontmatter.published_at} />
+                <meta property="article:modified_time" content={ghostPost.frontmatter.updated_at} />
                 {publicTags.map((keyword, i) => (<meta property="article:tag" content={keyword} key={i} />))}
                 {author.facebookUrl && <meta property="article:author" content={author.facebookUrl} />}
 
@@ -83,10 +84,10 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
                             ${author.sameAsArray ? `"sameAs": ${author.sameAsArray}` : ``}
                         },
                         ${publicTags.length ? `"keywords": "${_.join(publicTags, `, `)}",` : ``}
-                        "headline": "${ghostPost.meta_title || ghostPost.title}",
+                        "headline": "${ghostPost.frontmatter.meta_title || ghostPost.frontmatter.title}",
                         "url": "${canonical}",
-                        "datePublished": "${ghostPost.published_at}",
-                        "dateModified": "${ghostPost.updated_at}",
+                        "datePublished": "${ghostPost.frontmatter.published_at}",
+                        "dateModified": "${ghostPost.frontmatter.updated_at}",
                         ${shareImage ? `"image": {
                                 "@type": "ImageObject",
                                 "url": "${shareImage}",
@@ -103,7 +104,7 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
                                 "height": 60
                             }
                         },
-                        "description": "${ghostPost.meta_description || ghostPost.excerpt}",
+                        "description": "${ghostPost.frontmatter.meta_description || ghostPost.frontmatter.excerpt}",
                         "mainEntityOfPage": {
                             "@type": "WebPage",
                             "@id": "${config.siteUrl}"
@@ -118,28 +119,9 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
 
 ArticleMetaGhost.propTypes = {
     data: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        published_at: PropTypes.string.isRequired,
-        updated_at: PropTypes.string.isRequired,
-        meta_title: PropTypes.string,
-        meta_description: PropTypes.string,
-        primary_author: PropTypes.object.isRequired,
-        feature_image: PropTypes.string,
-        tags: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-                slug: PropTypes.string,
-                visibility: PropTypes.string,
-            })
-        ),
-        primaryTag: PropTypes.shape({
-            name: PropTypes.string,
-        }),
-        og_title: PropTypes.string,
-        og_description: PropTypes.string,
-        twitter_title: PropTypes.string,
-        twitter_description: PropTypes.string,
-        excerpt: PropTypes.string.isRequired,
+        html: PropTypes.string.isRequired,
+        frontmatter: PropTypes.object.isRequired,
+        excerpt: PropTypes.string.isRequired
     }).isRequired,
     settings: PropTypes.shape({
         allGhostSettings: PropTypes.object.isRequired,

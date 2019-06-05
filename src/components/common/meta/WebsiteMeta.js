@@ -8,16 +8,17 @@ import url from 'url'
 import ImageMeta from './ImageMeta'
 import config from '../../../utils/siteConfig'
 
-const WebsiteMeta = ({ data, settings, canonical, title, description, image, type }) => {
-    settings = settings.allGhostSettings.edges[0].node
+const WebsiteMeta = ({ data, settings, canonical, name, description, image, type }) => {
+    console.log("WebsiteMeta ->", data, name, description, image);
+    settings = config || settings.allGhostSettings.edges[0].node
 
-    const publisherLogo = url.resolve(config.siteUrl, (settings.logo || config.siteIcon))
-    let shareImage = image || data.feature_image || _.get(settings, `cover_image`, null)
+    const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
+    let shareImage = image || _.get(config, `cover_image`, null)
 
     shareImage = shareImage ? url.resolve(config.siteUrl, shareImage) : null
 
-    description = description || data.meta_description || data.description || config.siteDescriptionMeta || settings.description
-    title = `${title || data.meta_title || data.name || data.title} - ${settings.title}`
+    description = description || data.meta_description || data.description || config.siteDescriptionMeta || config.siteDescriptionMeta
+    const title = `${name} - ${config.siteTitleMeta}`
 
     return (
         <>
@@ -25,7 +26,7 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={canonical} />
-                <meta property="og:site_name" content={settings.title} />
+                <meta property="og:site_name" content={config.siteTitleMeta} />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
@@ -33,8 +34,8 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:url" content={canonical} />
-                {settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
-                {settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
+                {config.siteTwitterHandle && <meta name="twitter:site" content={`https://twitter.com/${config.siteTwitterHandle.replace(/^@/, ``)}/`} />}
+                {config.siteTwitterHandle && <meta name="twitter:creator" content={config.siteTwitterHandle} />}
                 <script type="application/ld+json">{`
                     {
                         "@context": "https://schema.org/",
@@ -48,7 +49,7 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
                             },` : ``}
                         "publisher": {
                             "@type": "Organization",
-                            "name": "${settings.title}",
+                            "name": "${config.siteTitleMeta}",
                             "logo": {
                                 "@type": "ImageObject",
                                 "url": "${publisherLogo}",
@@ -84,7 +85,7 @@ WebsiteMeta.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
-    type: PropTypes.oneOf([`WebSite`, `Series`]).isRequired,
+    type: PropTypes.oneOf([`website`, `tag`]).isRequired,
 }
 
 const WebsiteMetaQuery = props => (

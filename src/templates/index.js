@@ -14,7 +14,8 @@ import { MetaData } from '../components/common/meta'
 *
 */
 const Index = ({ data, location, pageContext }) => {
-    const posts = data.allGhostPost.edges
+    console.log("Index", data);
+    const posts = data.allMarkdownRemark.edges
 
     return (
         <>
@@ -36,7 +37,7 @@ const Index = ({ data, location, pageContext }) => {
 
 Index.propTypes = {
     data: PropTypes.shape({
-        allGhostPost: PropTypes.object.isRequired,
+        allMarkdownRemark: PropTypes.object.isRequired,
     }).isRequired,
     location: PropTypes.shape({
         pathname: PropTypes.string.isRequired,
@@ -48,18 +49,64 @@ export default Index
 
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination
+
+// export const pageQuery = graphql`
+//   query GhostPostQuery($limit: Int!, $skip: Int!) {
+//     allGhostPost(
+//         sort: { order: DESC, fields: [published_at] },
+//         limit: $limit,
+//         skip: $skip
+//     ) {
+//       edges {
+//         node {
+//           ...GhostPostFields
+//         }
+//       }
+//     }
+//   }
+// `
+
 export const pageQuery = graphql`
-  query GhostPostQuery($limit: Int!, $skip: Int!) {
-    allGhostPost(
-        sort: { order: DESC, fields: [published_at] },
-        limit: $limit,
-        skip: $skip
-    ) {
-      edges {
-        node {
-          ...GhostPostFields
-        }
-      }
+    query MardownPostQuery($limit: Int!, $skip: Int!) {
+        allMarkdownRemark(
+            sort: { order: DESC, fields: [frontmatter___published_at] }
+            limit: $limit
+            skip: $skip
+            filter: {fileAbsolutePath: {regex: "/src\/posts/"}}
+        ) {
+            edges {
+              node {
+                id
+                html
+                frontmatter {
+                  title
+                  date
+                  draft
+                  feature_image
+                  featured
+                  published_at
+                  weight
+                  page
+                  created_at
+                  slug
+                  tag_id
+                  name
+                  description
+                  meta_description
+                  meta_title
+                  visibility
+                  author {
+                      frontmatter {
+                          name
+                          profile_image
+                          description
+                          slug
+                      }
+                  }
+                }
+                excerpt
+              }
+            }
+          }
     }
-  }
-`
+`;

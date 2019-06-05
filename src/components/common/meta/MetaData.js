@@ -16,49 +16,57 @@ import AuthorMeta from './AuthorMeta'
 const MetaData = ({
     data,
     settings,
-    title,
+    name,
     description,
     image,
     location,
+    type
 }) => {
+    console.log("metaData->", data, type);
     const canonical = url.resolve(config.siteUrl, location.pathname, `/`)
     const { ghostPost, ghostTag, ghostAuthor, ghostPage } = data
     settings = settings.allGhostSettings.edges[0].node
 
-    if (ghostPost) {
+    if (type === "article") {
         return (
             <ArticleMeta
-                data={ghostPost}
+                data={data.markdownRemark}
                 canonical={canonical}
             />
         )
-    } else if (ghostTag) {
+    } else if (type === "tag") {
         return (
             <WebsiteMeta
-                data={ghostTag}
+                data={data.allMarkdownRemark}
                 canonical={canonical}
-                type="Series"
+                name={name}
+                description={description}
+                image={image}
+                type="tag"
             />
         )
-    } else if (ghostAuthor) {
+    } else if (type=== "author") {
         return (
             <AuthorMeta
-                data={ghostAuthor}
+                data={data}
                 canonical={canonical}
+                description={description}
+                image={image}
+                type="author"
             />
         )
-    } else if (ghostPage) {
+    } else if (type === "page") {
         return (
             <WebsiteMeta
                 data={ghostPage}
                 canonical={canonical}
-                type="WebSite"
+                type="website"
             />
         )
     } else {
-        title = title || config.siteTitleMeta || settings.title
+        name = name || config.siteTitleMeta
         description = description || config.siteDescriptionMeta || settings.description
-        image = image || settings.cover_image || null
+        image = image || config.cover_image || null
 
         image = image ? url.resolve(config.siteUrl, image) : null
 
@@ -66,10 +74,10 @@ const MetaData = ({
             <WebsiteMeta
                 data={{}}
                 canonical={canonical}
-                title={title}
+                name={name}
                 description={description}
                 image={image}
-                type="WebSite"
+                type="website"
             />
         )
     }

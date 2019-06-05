@@ -33,7 +33,32 @@ module.exports = {
     siteMetadata: {
         siteUrl: config.siteUrl,
     },
+    mapping: {
+        'MarkdownRemark.frontmatter.tags': `MarkdownRemark.frontmatter.tag_id`,
+        'MarkdownRemark.frontmatter.author': `MarkdownRemark.frontmatter.author_id`
+      },
     plugins: [
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `posts`),
+                name: `posts`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `tags`),
+                name: `tags`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `authors`),
+                name: `authors`,
+            },
+        },
         /**
          *  Content Plugins
          */
@@ -55,6 +80,7 @@ module.exports = {
         },
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
+        `gatsby-transformer-remark`,
         {
             resolve: `gatsby-source-ghost`,
             options:
@@ -113,60 +139,48 @@ module.exports = {
             options: {
                 query: `
                 {
-                    allGhostPost {
-                        edges {
-                            node {
-                                id
-                                slug
-                                updated_at
-                                created_at
-                                feature_image
-                            }
+                    allPosts: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}) {
+                      edges: nodes {
+                        id
+                        node: frontmatter {
+                          slug
+                          updated_at
+                          feature_image
                         }
+                      }
                     }
-                    allGhostPage {
-                        edges {
-                            node {
-                                id
-                                slug
-                                updated_at
-                                created_at
-                                feature_image
-                            }
+                    allAuthors: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/authors/"}}) {
+                      edges: nodes {
+                        id
+                        node: frontmatter {
+                          slug
+                          updated_at
+                          feature_image
                         }
+                      }
                     }
-                    allGhostTag {
-                        edges {
-                            node {
-                                id
-                                slug
-                                feature_image
-                            }
+                    allTags: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/tags/"}}) {
+                      edges: nodes {
+                        id
+                        node: frontmatter {
+                          slug
+                          updated_at
+                          feature_image
                         }
+                      }
                     }
-                    allGhostAuthor {
-                        edges {
-                            node {
-                                id
-                                slug
-                                profile_image
-                            }
-                        }
-                    }
-                }`,
+                  }
+                  `,
                 mapping: {
-                    allGhostPost: {
+                    allPosts: {
                         sitemap: `posts`,
                     },
-                    allGhostTag: {
-                        sitemap: `tags`,
-                    },
-                    allGhostAuthor: {
+                    allAuthors: {
                         sitemap: `authors`,
                     },
-                    allGhostPage: {
-                        sitemap: `pages`,
-                    },
+                    allTags: {
+                        sitemap: `tags`,
+                    }
                 },
                 exclude: [
                     `/dev-404-page`,

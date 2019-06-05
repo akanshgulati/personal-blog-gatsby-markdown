@@ -1,32 +1,39 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'gatsby'
+import React from "react";
+import PropTypes from "prop-types";
+import { graphql } from "gatsby";
 
-import { Layout, PostCard, Pagination } from '../components/common'
-import { MetaData } from '../components/common/meta'
+import { Layout, PostCard, Pagination } from "../components/common";
+import { MetaData } from "../components/common/meta";
 
 /**
-* Tag page (/tag/:slug)
-*
-* Loads all posts for the requested tag incl. pagination.
-*
-*/
+ * Tag page (/tag/:slug)
+ *
+ * Loads all posts for the requested tag incl. pagination.
+ *
+ */
 const Tag = ({ data, location, pageContext }) => {
-    const tag = data.ghostTag
-    const posts = data.allGhostPost.edges
+    console.log("TAGS -> ", data, pageContext);
+
+    const tagName = pageContext.name;
+    const tagDescription = pageContext.description;
+    
+    const posts = data.allMarkdownRemark.edges.filter(({node}) => node.excerpt);
 
     return (
         <>
             <MetaData
                 data={data}
                 location={location}
-                type="series"
+                type="tag"
+                name={pageContext.tag.name}
+                description={pageContext.tag.description}
+                image={pageContext.tag.feature_image}
             />
             <Layout>
                 <div className="container">
                     <header className="tag-header">
-                        <h1>{tag.name}</h1>
-                        {tag.description ? <p>{tag.description}</p> : null }
+                        <h1>{tagName}</h1>
+                        {tagDescription ? <p>{tagDescription}</p> : null}
                     </header>
                     <section className="post-feed">
                         {posts.map(({ node }) => (
@@ -38,41 +45,76 @@ const Tag = ({ data, location, pageContext }) => {
                 </div>
             </Layout>
         </>
-    )
-}
+    );
+};
 
 Tag.propTypes = {
     data: PropTypes.shape({
-        ghostTag: PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            description: PropTypes.string,
-        }),
-        allGhostPost: PropTypes.object.isRequired,
+        allMarkdownRemark: PropTypes.object
     }).isRequired,
     location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired,
+        pathname: PropTypes.string.isRequired
     }).isRequired,
-    pageContext: PropTypes.object,
-}
+    pageContext: PropTypes.object
+};
 
-export default Tag
+export default Tag;
 
+// export const pageQuery = graphql`
+//     query GhostTagQuery($slug: String!, $limit: Int!, $skip: Int!) {
+//         ghostTag(slug: { eq: $slug }) {
+//             ...GhostTagFields
+//         }
+//         allGhostPost(
+//             sort: { order: DESC, fields: [published_at] },
+//             filter: {tags: {elemMatch: {slug: {eq: $slug}}}},
+//             limit: $limit,
+//             skip: $skip
+//         ) {
+//             edges {
+//                 node {
+//                 ...GhostPostFields
+//                 }
+//             }
+//         }
+//     }
+// `
 export const pageQuery = graphql`
-    query GhostTagQuery($slug: String!, $limit: Int!, $skip: Int!) {
-        ghostTag(slug: { eq: $slug }) {
-            ...GhostTagFields
-        }
-        allGhostPost(
-            sort: { order: DESC, fields: [published_at] },
-            filter: {tags: {elemMatch: {slug: {eq: $slug}}}},
-            limit: $limit,
+    query MarkdownTagQuery($slug: String, $limit: Int!, $skip: Int!) {
+        allMarkdownRemark(
+            limit: $limit
+            sort: { fields: [frontmatter___published_at], order: DESC }
+            filter: {
+                frontmatter: {
+                    tags: { elemMatch: { frontmatter: { name: { eq: $slug } } } }
+                }
+            }
             skip: $skip
         ) {
+            totalCount
             edges {
                 node {
-                ...GhostPostFields
+                    id
+                    html
+                    frontmatter {
+                        title
+                        slug
+                        tags {
+                            frontmatter {
+                                name
+                            }
+                        }
+                        feature_image
+                        author {
+                            frontmatter {
+                                name
+                                profile_image
+                            }
+                        }
+                    }
+                    excerpt
                 }
             }
         }
     }
-`
+`;

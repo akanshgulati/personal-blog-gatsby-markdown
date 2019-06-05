@@ -9,12 +9,13 @@ import getAuthorProperties from './getAuthorProperties'
 import config from '../../../utils/siteConfig'
 
 const AuthorMeta = ({ data, settings, canonical }) => {
+    console.log("AuthorMeta->", data)
     settings = settings.allGhostSettings.edges[0].node
 
     const author = getAuthorProperties(data)
-    const shareImage = author.image || _.get(settings, `cover_image`, null)
-    const title = `${data.name} - ${settings.title}`
-    const description = data.bio || config.siteDescriptionMeta || settings.description
+    const shareImage = author.image || _.get(config, `cover_image`, null)
+    const title = `${data.name} - ${config.siteTitleMeta}`
+    const description = data.description || config.siteDescriptionMeta
 
     return (
         <>
@@ -22,7 +23,7 @@ const AuthorMeta = ({ data, settings, canonical }) => {
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={canonical} />
-                <meta property="og:site_name" content={settings.title} />
+                <meta property="og:site_name" content={config.siteTitleMeta} />
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
@@ -30,8 +31,8 @@ const AuthorMeta = ({ data, settings, canonical }) => {
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:url" content={canonical} />
-                {settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
-                {settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
+                {config.siteTwitterHandle && <meta name="twitter:site" content={`https://twitter.com/${config.siteTwitterHandle.replace(/^@/, ``)}/`} />}
+                {config.siteTwitterHandle && <meta name="twitter:creator" content={config.siteTwitterHandle} />}
                 <script type="application/ld+json">{`
                     {
                         "@context": "https://schema.org/",
