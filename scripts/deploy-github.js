@@ -4,7 +4,7 @@ const ghpages = require(`gh-pages`)
 ghpages.publish(
     `public`,
     {
-        branch: `master`,
+        branch: `gh-pages`,
         repo: `https://github.com/akanshgulati/gatsby-starter-ghost.git`,
     },
     () => {

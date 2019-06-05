@@ -100,18 +100,8 @@ module.exports = {
                 theme_color: config.themeColor,
                 display: `minimal-ui`,
                 icon: `static/${config.siteIcon}`,
-                query: `
-                {
-                    allGhostSettings {
-                        edges {
-                            node {
-                                title
-                                description
-                            }
-                        }
-                    }
-                }
-              `,
+                name: config.siteTitleMeta,
+                description: config.siteDescriptionMeta,
             },
         },
         {

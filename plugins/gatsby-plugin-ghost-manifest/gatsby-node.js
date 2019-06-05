@@ -4,8 +4,6 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
-
 var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -38,25 +36,16 @@ function () {
   var _ref2 = (0, _asyncToGenerator2.default)(
   /*#__PURE__*/
   _regenerator.default.mark(function _callee(_ref, pluginOptions) {
-    var graphql, icon, manifest, _ref3, data, siteTitle, iconPath;
-
+    var graphql, icon, manifest, iconPath;
     return _regenerator.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             graphql = _ref.graphql;
-            icon = pluginOptions.icon, manifest = (0, _objectWithoutPropertiesLoose2.default)(pluginOptions, ["icon"]);
-            _context.next = 4;
-            return graphql(pluginOptions.query);
+            icon = pluginOptions.icon, manifest = (0, _objectWithoutPropertiesLoose2.default)(pluginOptions, ["icon"]); // const { data } = await graphql(pluginOptions.query)
+            // const siteTitle = data.allGhostSettings.edges[0].node.title || `No Title`
+            // Delete options we won't pass to the manifest.webmanifest.
 
-          case 4:
-            _ref3 = _context.sent;
-            data = _ref3.data;
-            siteTitle = data.allGhostSettings.edges[0].node.title || "No Title";
-            manifest = (0, _extends2.default)({}, manifest, {
-              name: siteTitle // Delete options we won't pass to the manifest.webmanifest.
-
-            });
             delete manifest.plugins;
             delete manifest.legacy;
             delete manifest.theme_color_in_head;
@@ -90,7 +79,7 @@ function () {
               Promise.resolve();
             }
 
-          case 17:
+          case 11:
           case "end":
             return _context.stop();
         }
