@@ -14,8 +14,8 @@ import { MetaData } from "../components/common/meta"
 const Tag = ({ data, location, pageContext }) => {
     console.log(`TAGS -> `, data, pageContext)
 
-    const tagName = pageContext.name
-    const tagDescription = pageContext.description
+    const tagName = pageContext.tag.name
+    const tagDescription = pageContext.tag.description
     
     const posts = data.allMarkdownRemark.edges.filter(({ node }) => node.excerpt)
 
