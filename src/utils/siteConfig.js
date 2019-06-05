@@ -1,5 +1,5 @@
 module.exports = {
-    siteUrl: `https://blog.akansh.com`, // Site domain. Do not include a trailing slash!
+    siteUrl: `https://try.akansh.com`, // Site domain. Do not include a trailing slash!
 
     postsPerPage: 12, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
 
@@ -7,7 +7,7 @@ module.exports = {
     siteDescriptionMeta: `Sharing the personal experience related to optimization, how-to, etc.`, // This allows an alternative site description for meta data for pages.
     siteTwitterHandle: `@akanshgulati`,
     siteFacebookHandle: `akanshgulati`,
-    language: "en",
+    language: `en`,
 
     shareImageWidth: 1000, // Change to the width of your default share image
     shareImageHeight: 523, // Change to the height of your default share image
@@ -16,16 +16,16 @@ module.exports = {
     siteIcon: `favicon.png`, // Logo in /static dir used for SEO, RSS, and App manifest
     backgroundColor: `#e9e9e9`, // Used for Offline Manifest
     themeColor: `#15171A`, // Used for Offline Manifest
-    cover_image: "",
+    cover_image: ``,
 
     navigation: [
         {
-            label: "Home",
-            url: "/"
+            label: `Home`,
+            url: `/`,
         },
         {
-            label: "How To",
-            url: "/tag/how-to/"
-        }
-    ]
-};
+            label: `How To`,
+            url: `/tag/how-to/`,
+        },
+    ],
+}

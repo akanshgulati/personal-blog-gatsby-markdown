@@ -20,21 +20,21 @@ const MetaData = ({
     description,
     image,
     location,
-    type
+    type,
 }) => {
-    console.log("metaData->", data, type);
+    console.log(`metaData->`, data, type)
     const canonical = url.resolve(config.siteUrl, location.pathname, `/`)
-    const { ghostPost, ghostTag, ghostAuthor, ghostPage } = data
+    const { ghostPage } = data
     settings = settings.allGhostSettings.edges[0].node
 
-    if (type === "article") {
+    if (type === `article`) {
         return (
             <ArticleMeta
                 data={data.markdownRemark}
                 canonical={canonical}
             />
         )
-    } else if (type === "tag") {
+    } else if (type === `tag`) {
         return (
             <WebsiteMeta
                 data={data.allMarkdownRemark}
@@ -45,7 +45,7 @@ const MetaData = ({
                 type="tag"
             />
         )
-    } else if (type=== "author") {
+    } else if (type === `author`) {
         return (
             <AuthorMeta
                 data={data}
@@ -55,7 +55,7 @@ const MetaData = ({
                 type="author"
             />
         )
-    } else if (type === "page") {
+    } else if (type === `page`) {
         return (
             <WebsiteMeta
                 data={ghostPage}

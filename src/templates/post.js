@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
-
+import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
@@ -12,7 +12,7 @@ import { MetaData } from '../components/common/meta'
 *
 */
 const Post = ({ data, location }) => {
-    console.log("post", data, location);
+    console.log(`post`, data, location)
     const post = data.markdownRemark
     
     return (
@@ -21,19 +21,24 @@ const Post = ({ data, location }) => {
             <Layout>
                 <div className="container">
                     <article className="content">
-                        <header class="post-full-header">
-                            <div class="post-full-meta">
+                        <header className="post-full-header">
+                            <div className="post-full-meta">
                                 <time
-                                    class="post-full-meta-date"
-                                    datetime="2019-01-09"
+                                    className="post-full-meta-date"
+                                    dateTime="2019-01-09"
                                 >
-                                    9 January 2019
+                                    {post.frontmatter.published_at}
                                 </time>
-                                <span class="date-divider">/</span>{" "}
-                                <a href="/tag/new/">New</a>
+                                
+                                {post.frontmatter.tags.map(({ frontmatter}) => (
+                                    <span key={frontmatter.name}>
+                                        <span className="date-divider">/</span>
+                                        <Link to={`tag/${frontmatter.slug}`}>{frontmatter.name}</Link>
+                                    </span>
+                                ))}
                             </div>
-                            <h1 class="post-full-title js-foating-header-trigger js-no-widows">
-                               {post.frontmatter.title}
+                            <h1 className="post-full-title">
+                                {post.frontmatter.title}
                             </h1>
                         </header>
                         {post.frontmatter.feature_image ? (
@@ -53,7 +58,7 @@ const Post = ({ data, location }) => {
                             <section
                                 className="content-body load-external-scripts"
                                 dangerouslySetInnerHTML={{
-                                    __html: post.html
+                                    __html: post.html,
                                 }}
                             />
                         </section>
@@ -61,13 +66,13 @@ const Post = ({ data, location }) => {
                 </div>
             </Layout>
         </>
-    );
+    )
 }
 
 Post.propTypes = {
     data: PropTypes.shape({
         markdownRemark: PropTypes.shape({
-            excerpt: PropTypes.string.isRequired
+            excerpt: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
@@ -100,8 +105,14 @@ export const postQuery = graphql`
                 website
             }
         }
+        tags {
+            frontmatter {
+                name
+                slug
+            }
+        }
         meta_description
-        published_at
+        published_at(formatString: "MMMM DD, YYYY")
       }
       excerpt
     }

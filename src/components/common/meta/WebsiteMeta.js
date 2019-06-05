@@ -8,9 +8,9 @@ import url from 'url'
 import ImageMeta from './ImageMeta'
 import config from '../../../utils/siteConfig'
 
-const WebsiteMeta = ({ data, settings, canonical, name, description, image, type }) => {
-    console.log("WebsiteMeta ->", data, name, description, image);
-    settings = config || settings.allGhostSettings.edges[0].node
+const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
+    console.log(`WebsiteMeta ->`, data, name, description, image)
+    const settings = config || settings.allGhostSettings.edges[0].node
 
     const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
     let shareImage = image || _.get(config, `cover_image`, null)
@@ -82,7 +82,7 @@ WebsiteMeta.propTypes = {
         allGhostSettings: PropTypes.object.isRequired,
     }).isRequired,
     canonical: PropTypes.string.isRequired,
-    title: PropTypes.string,
+    name: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
     type: PropTypes.oneOf([`website`, `tag`]).isRequired,

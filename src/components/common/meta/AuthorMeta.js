@@ -9,8 +9,8 @@ import getAuthorProperties from './getAuthorProperties'
 import config from '../../../utils/siteConfig'
 
 const AuthorMeta = ({ data, settings, canonical }) => {
-    console.log("AuthorMeta->", data)
-    settings = settings.allGhostSettings.edges[0].node
+    console.log(`AuthorMeta->`, data)
+    // settings = settings.allGhostSettings.edges[0].node
 
     const author = getAuthorProperties(data)
     const shareImage = author.image || _.get(config, `cover_image`, null)

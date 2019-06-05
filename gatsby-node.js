@@ -1,13 +1,13 @@
-const path = require(`path`);
-const config = require(`./src/utils/siteConfig`);
-const { paginate } = require(`gatsby-awesome-pagination`);
+const path = require(`path`)
+const config = require(`./src/utils/siteConfig`)
+const { paginate } = require(`gatsby-awesome-pagination`)
 
 /**
 * Here is the place where Gatsby creates the URLs for all the
 * posts, tags, pages and authors that we fetched from the Ghost site.
 */
 exports.createPages = ({ graphql, actions }) => {
-    const { createPage } = actions;
+    const { createPage } = actions
 
     /**
     * Posts
@@ -15,7 +15,7 @@ exports.createPages = ({ graphql, actions }) => {
     const createPosts = new Promise((resolve, reject) => {
         const postTemplate = path.resolve(`./src/templates/post.js`)
         const indexTemplate = path.resolve(`./src/templates/index.js`)
-        const tagsTemplate = path.resolve(`./src/templates/tag.js`)
+        // const tagsTemplate = path.resolve(`./src/templates/tag.js`)
         // console.log("Entered in createposts");
         resolve(
             graphql(`
@@ -34,7 +34,8 @@ exports.createPages = ({ graphql, actions }) => {
                     }
                 }
             }`
-            ).then(result => {
+            // eslint-disable-next-line consistent-return
+            ).then((result) => {
                 // console.log("Post Edges->", result);
                 if (result.errors) {
                     return reject(result.errors)
@@ -45,19 +46,18 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 // console.log("Post Edges->", result.data.allMarkdownRemark);
 
-                const items = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fileAbsolutePath.indexOf('src/posts') > -1);
-                let tags = new Set();
+                const items = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fileAbsolutePath.indexOf(`src/posts`) > -1)
+                let tags = new Set()
 
-                items.forEach(({node}) => {
+                items.forEach(({ node }) => {
                     // This part here defines, that our posts will use
                     // a `/:slug/` permalink.
-                    node.url = `/${node.frontmatter.slug}/`;
+                    node.url = `/${node.frontmatter.slug}/`
 
-                    node.frontmatter.tags.forEach(tag =>
-                        tags.add(tag)
-                    );
+                    node.frontmatter.tags.forEach(tag => tags.add(tag)
+                    )
 
-                   // console.log("Creating Page - url", node.url, "slug", node.frontmatter.slug);
+                    // console.log("Creating Page - url", node.url, "slug", node.frontmatter.slug);
 
                     createPage({
                         path: node.url,
@@ -65,10 +65,10 @@ exports.createPages = ({ graphql, actions }) => {
                         context: {
                             // Data passed to context is available
                             // in page queries as GraphQL variables.
-                            slug: node.frontmatter.slug
-                        }
-                    });
-                });
+                            slug: node.frontmatter.slug,
+                        },
+                    })
+                })
 
                 // Pagination for posts, e.g., /, /page/2, /page/3
                 paginate({
@@ -76,27 +76,26 @@ exports.createPages = ({ graphql, actions }) => {
                     items: items,
                     itemsPerPage: config.postsPerPage,
                     component: indexTemplate,
-                    pathPrefix: ({pageNumber}) => {
+                    pathPrefix: ({ pageNumber }) => {
                         if (pageNumber === 0) {
                             return `/`
                         } else {
                             return `/page`
                         }
                     },
-                });
-            }));
-    });
+                })
+            }))
+    })
 
     /**
     * Tags
     */
     const createTags = new Promise((resolve, reject) => {
-        const tagsTemplate = path.resolve(`./src/templates/tag.js`);
-
+        const tagsTemplate = path.resolve(`./src/templates/tag.js`)
         resolve(
             graphql(`{
                 allMarkdownRemark(
-                    filter: {fileAbsolutePath: {regex: "/src\/tags/"}}
+                    filter: {fileAbsolutePath: {regex: "/tags/"}}
                 ) {
                   totalCount
                   edges {
@@ -123,14 +122,13 @@ exports.createPages = ({ graphql, actions }) => {
                 // finding all tags available
                 const items = result.data.allMarkdownRemark.edges
 
-               // console.log("Tag Edges->", items.length);
+                // console.log("Tag Edges->", items.length);
 
-                const postsPerPage = config.postsPerPage;
+                const postsPerPage = config.postsPerPage
 
                 items.forEach(({ node }) => {
-                    
                     // const totalPosts = 1 || node.postCount !== null ? node.postCount : 0
-                    const totalPosts = 1;
+                    const totalPosts = 1
                     const numberOfPages = Math.ceil(totalPosts / postsPerPage)
 
                     // This part here defines, that our tag pages will use
@@ -151,12 +149,12 @@ exports.createPages = ({ graphql, actions }) => {
                             path:
                                 i === 0
                                     ? node.frontmatter
-                                          .url
+                                        .url
                                     : `${
-                                          node
-                                              .frontmatter
-                                              .url
-                                      }page/${i + 1}/`,
+                                        node
+                                            .frontmatter
+                                            .url
+                                    }page/${i + 1}/`,
                             component: path.resolve(
                                 tagsTemplate
                             ),
@@ -173,9 +171,9 @@ exports.createPages = ({ graphql, actions }) => {
                                 nextPageNumber: nextPageNumber,
                                 previousPagePath: previousPagePath,
                                 nextPagePath: nextPagePath,
-                                tag: node.frontmatter
-                            }
-                        });
+                                tag: node.frontmatter,
+                            },
+                        })
                     })
                 })
 
@@ -223,7 +221,7 @@ exports.createPages = ({ graphql, actions }) => {
 
                 items.forEach(({ node }) => {
                     // const totalPosts = node.postCount !== null ? node.postCount : 0
-                    const totalPosts = 1;
+                    const totalPosts = 1
                     const numberOfPages = Math.ceil(totalPosts / postsPerPage)
 
                     // This part here defines, that our author pages will use
@@ -252,7 +250,7 @@ exports.createPages = ({ graphql, actions }) => {
                                 nextPageNumber: nextPageNumber,
                                 previousPagePath: previousPagePath,
                                 nextPagePath: nextPagePath,
-                                author: node.frontmatter
+                                author: node.frontmatter,
                             },
                         })
                     })
@@ -262,56 +260,56 @@ exports.createPages = ({ graphql, actions }) => {
         )
     })
 
-    /**
-    * Pages
-    */
-    const createPages = new Promise((resolve, reject) => {
-        const pageTemplate = path.resolve(`./src/templates/page.js`)
-        resolve(
-            graphql(`
-                {
-                    allGhostPage(
-                        sort: {order: ASC, fields: published_at}
-                    ) {
-                        edges {
-                            node {
-                                slug
-                                url
-                            }
-                        }
-                    }
-                }`
-            ).then((result) => {
-                if (result.errors) {
-                    return reject(result.errors)
-                }
+    // /**
+    // * Pages
+    // */
+    // const createPages = new Promise((resolve, reject) => {
+    //     const pageTemplate = path.resolve(`./src/templates/page.js`)
+    //     resolve(
+    //         graphql(`
+    //             {
+    //                 allGhostPage(
+    //                     sort: {order: ASC, fields: published_at}
+    //                 ) {
+    //                     edges {
+    //                         node {
+    //                             slug
+    //                             url
+    //                         }
+    //                     }
+    //                 }
+    //             }`
+    //         ).then((result) => {
+    //             if (result.errors) {
+    //                 return reject(result.errors)
+    //             }
 
-                if (!result.data.allGhostPage) {
-                    return resolve()
-                }
+    //             if (!result.data.allGhostPage) {
+    //                 return resolve()
+    //             }
 
-                const items = result.data.allGhostPage.edges
+    //             const items = result.data.allGhostPage.edges
 
-                items.forEach(({ node }) => {
-                    // This part here defines, that our pages will use
-                    // a `/:slug/` permalink.
-                    node.url = `/${node.slug}/`
+    //             items.forEach(({ node }) => {
+    //                 // This part here defines, that our pages will use
+    //                 // a `/:slug/` permalink.
+    //                 node.url = `/${node.slug}/`
 
-                    createPage({
-                        path: node.url,
-                        component: path.resolve(pageTemplate),
-                        context: {
-                            // Data passed to context is available
-                            // in page queries as GraphQL variables.
-                            slug: node.slug,
-                        },
-                    })
-                })
+    //                 createPage({
+    //                     path: node.url,
+    //                     component: path.resolve(pageTemplate),
+    //                     context: {
+    //                         // Data passed to context is available
+    //                         // in page queries as GraphQL variables.
+    //                         slug: node.slug,
+    //                     },
+    //                 })
+    //             })
 
-                return resolve()
-            })
-        )
-    })
+    //             return resolve()
+    //         })
+    //     )
+    // })
 
     return Promise.all([createPosts, createTags, createAuthors])
-};
+}

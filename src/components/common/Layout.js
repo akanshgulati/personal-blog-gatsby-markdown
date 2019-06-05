@@ -37,19 +37,19 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                 <header className="site-head">
                     <div className="container">
                         <div className="site-mast">
-                            <div className={isHome? "site-mast-left": "site-mast-left-flex"}>
+                            <div className={isHome ? `site-mast-left` : `site-mast-left-flex`}>
                                 <Link to="/">
                                     {config.logo ?
                                         <img className="site-logo" src={site.logo} alt={site.title} />
                                         : <Img fixed={data.file.childImageSharp.fixed} alt={site.title} />
                                     }
                                 </Link>
-                                {isHome? null: 
-                                <nav className="site-nav">
-                                    <div className="site-nav-left">
-                                         <Navigation data={config.navigation} navClass="site-nav-item" />
-                                     </div>
-                                </nav>}
+                                {isHome ? null : 
+                                    <nav className="site-nav">
+                                        <div className="site-nav-left">
+                                            <Navigation data={config.navigation} navClass="site-nav-item" />
+                                        </div>
+                                    </nav>}
                             </div>
                             <div className="site-mast-right">
                                 { config.siteTwitterHandle && <a href={ twitterUrl } className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/twitter.svg" alt="Twitter" /></a>}
@@ -63,7 +63,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                 <p className="site-banner-desc">{config.siteDescriptionMeta}</p>
                             </div> :
                             null}
-                            {isHome ?
+                        {isHome ?
                             <nav className="site-nav">
                                 <div className="site-nav-left">
                                     {/* The navigation items as setup in Ghost */}
@@ -72,7 +72,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                                 <div className="site-nav-right">
                                     {/* <Link className="site-nav-button" to="/about">About</Link> */}
                                 </div>
-                            </nav>: null}
+                            </nav> : null}
                     </div>
                 </header>
 

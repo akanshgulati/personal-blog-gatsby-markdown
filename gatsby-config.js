@@ -35,8 +35,8 @@ module.exports = {
     },
     mapping: {
         'MarkdownRemark.frontmatter.tags': `MarkdownRemark.frontmatter.tag_id`,
-        'MarkdownRemark.frontmatter.author': `MarkdownRemark.frontmatter.author_id`
-      },
+        'MarkdownRemark.frontmatter.author': `MarkdownRemark.frontmatter.author_id`,
+    },
     plugins: [
         {
             resolve: `gatsby-source-filesystem`,
@@ -180,7 +180,7 @@ module.exports = {
                     },
                     allTags: {
                         sitemap: `tags`,
-                    }
+                    },
                 },
                 exclude: [
                     `/dev-404-page`,

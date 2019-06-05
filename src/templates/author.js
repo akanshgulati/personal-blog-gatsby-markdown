@@ -12,11 +12,11 @@ import { MetaData } from '../components/common/meta'
 *
 */
 const Author = ({ data, location, pageContext }) => {
-    const author = pageContext.author;
+    const author = pageContext.author
     const posts = data.allMarkdownRemark.edges
     const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
     const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
-    console.log("Authors -> ", author);
+    console.log(`Authors -> `, author)
     return (
         <>
             <MetaData

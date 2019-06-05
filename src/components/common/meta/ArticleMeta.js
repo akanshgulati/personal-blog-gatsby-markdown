@@ -12,7 +12,7 @@ import config from '../../../utils/siteConfig'
 import { tags as tagsHelper } from '@tryghost/helpers'
 
 const ArticleMetaGhost = ({ data, settings, canonical }) => {
-    console.log("ghostpost->", data);
+    console.log(`ghostpost->`, data)
     const ghostPost = data
     settings = config
 
@@ -121,7 +121,7 @@ ArticleMetaGhost.propTypes = {
     data: PropTypes.shape({
         html: PropTypes.string.isRequired,
         frontmatter: PropTypes.object.isRequired,
-        excerpt: PropTypes.string.isRequired
+        excerpt: PropTypes.string.isRequired,
     }).isRequired,
     settings: PropTypes.shape({
         allGhostSettings: PropTypes.object.isRequired,
