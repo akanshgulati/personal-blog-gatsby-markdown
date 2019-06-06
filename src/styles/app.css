@@ -626,6 +626,11 @@ h6 {
     background: #fff;
 }
 
+#disqus_thread {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
 .post-feature-image img {
     margin: 0 0 3vw;
     width: 100%;

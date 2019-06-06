@@ -14,6 +14,7 @@ tags:
 created_at: "2018-12-14T17:00:45.000+00:00"
 slug: 'about'
 author: 'akansh'
+comment: true
 meta_description: 'This is an example description'
 ---
 

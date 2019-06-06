@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
+import { DiscussionEmbed } from "disqus-react";
 
 /**
 * Single post view (/:slug)
@@ -14,7 +15,11 @@ import { MetaData } from '../components/common/meta'
 const Post = ({ data, location }) => {
     console.log(`post`, data, location)
     const post = data.markdownRemark
-    
+    const disqusShortname = "https-try-akansh-com";
+    const disqusConfig = {
+        identifier: post.id,
+        title: post.frontmatter.title,
+    }
     return (
         <>
             <MetaData data={data} location={location} type="article" />
@@ -25,7 +30,7 @@ const Post = ({ data, location }) => {
                             <div className="post-full-meta">
                                 <time
                                     className="post-full-meta-date"
-                                    dateTime="2019-01-09"
+                                    dateTime="{post.frontmatter.published_at}"
                                 >
                                     {post.frontmatter.published_at}
                                 </time>
@@ -63,6 +68,7 @@ const Post = ({ data, location }) => {
                             />
                         </section>
                     </article>
+                    {post.frontmatter.comment && <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />}
                 </div>
             </Layout>
         </>
@@ -113,6 +119,7 @@ export const postQuery = graphql`
         }
         meta_description
         published_at(formatString: "MMMM DD, YYYY")
+        comment
       }
       excerpt
     }

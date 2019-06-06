@@ -32,6 +32,8 @@ try {
 module.exports = {
     siteMetadata: {
         siteUrl: config.siteUrl,
+        title: config.siteTitleMeta,
+        description: config.siteDescriptionMeta,
     },
     mapping: {
         'MarkdownRemark.frontmatter.tags': `MarkdownRemark.frontmatter.tag_id`,
