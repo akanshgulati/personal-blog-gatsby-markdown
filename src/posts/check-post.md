@@ -1,27 +1,24 @@
 ---
-title: 'Javascript MD5'
-date: 2019-11-19T10:47:58+10:00
+title: Javascript MD5
+slug: javascript-md5
 draft: false
-feature_image: "images/featured.png"
+published_at: 2018-11-19T00:47:58.000Z
+updated_at: 2018-11-19T00:47:58.000Z
 featured: false
-published_at: 2018-11-19T10:47:58+10:00
-updated_at: 2018-11-19T10:47:58+10:00
-weight: 2
-page: false
-tags: 
-    - javascript
-    - education
-created_at: "2018-12-14T17:00:45.000+00:00"
-slug: 'javascript-md5'
-author: 'akansh'
+feature_image: images/featured.png
+meta_description: This is an example description
 comment: false
-meta_description: 'This is an example description'
+author: akansh
+tags:
+  - javascript
+  - education
 ---
-
 ## Demo
+
 [JavaScript MD5 Demo](https://blueimp.github.io/JavaScript-MD5/)
 
 ## Description
+
 JavaScript MD5 implementation. Compatible with server-side environments like
 Node.js, module loaders like RequireJS, Browserify or webpack and all web
 browsers.
@@ -29,6 +26,7 @@ browsers.
 ## Usage
 
 ### Client-side
+
 Include the (minified) JavaScript [MD5](https://en.wikipedia.org/wiki/MD5)
 script in your HTML markup:
 
@@ -56,6 +54,7 @@ install the **blueimp-md5** package with [npm](https://www.npmjs.org/):
 ```sh
 npm install blueimp-md5
 ```
+
 ```javascript
 // In your gatsby-config.js
 plugins: [
@@ -74,7 +73,6 @@ plugins: [
 ```html
 <img src="image.jpg" intrinsicsize="800x600" />
 ```
-
 
 Add a file **server.js** with the following content:
 
@@ -100,6 +98,7 @@ node server.js
 ```
 
 ## Requirements
+
 The JavaScript MD5 script has zero dependencies.
 
 ## API
@@ -134,8 +133,9 @@ var hash = md5("value", "key", true);
 ```
 
 ## Tests
+
 The JavaScript MD5 project comes with
-[Unit Tests](https://en.wikipedia.org/wiki/Unit_testing).  
+[Unit Tests](https://en.wikipedia.org/wiki/Unit_testing).\
 There are two different ways to run the tests:
 
 * Open test/index.html in your browser or
@@ -144,11 +144,10 @@ There are two different ways to run the tests:
 The first one tests the browser integration, the second one the
 [node.js](http://nodejs.org/) integration.
 
-
 ## License
+
 The JavaScript MD5 script is released under the
 [MIT license](https://opensource.org/licenses/MIT).
-
 
 ```javascript
 plugins: [
@@ -161,10 +160,7 @@ plugins: [
 ]
 ```
 
-
-Trying it
-
-
+## Trying it
 
 ```javascript{numberLines: 5}
 // In your gatsby-config.js
