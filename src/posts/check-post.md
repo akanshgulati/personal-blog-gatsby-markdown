@@ -2,7 +2,7 @@
 title: 'Javascript MD5'
 date: 2019-11-19T10:47:58+10:00
 draft: false
-feature_image: "images/ghost-icon.png"
+feature_image: "images/featured.png"
 featured: false
 published_at: 2018-11-19T10:47:58+10:00
 updated_at: 2018-11-19T10:47:58+10:00

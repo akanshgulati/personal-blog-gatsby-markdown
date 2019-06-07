@@ -26,7 +26,10 @@ const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={canonical} />
-                <meta property="og:site_name" content={config.siteTitleMeta} />
+                <meta
+                    property="og:site_name"
+                    content={config.siteTitleMeta}
+                />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
@@ -34,19 +37,39 @@ const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:url" content={canonical} />
-                {config.siteTwitterHandle && <meta name="twitter:site" content={`https://twitter.com/${config.siteTwitterHandle.replace(/^@/, ``)}/`} />}
-                {config.siteTwitterHandle && <meta name="twitter:creator" content={config.siteTwitterHandle} />}
+
+                <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" />
+
+                {config.siteTwitterHandle && (
+                    <meta
+                        name="twitter:site"
+                        content={`https://twitter.com/${config.siteTwitterHandle.replace(
+                            /^@/,
+                            ``
+                        )}/`}
+                    />
+                )}
+                {config.siteTwitterHandle && (
+                    <meta
+                        name="twitter:creator"
+                        content={config.siteTwitterHandle}
+                    />
+                )}
                 <script type="application/ld+json">{`
                     {
                         "@context": "https://schema.org/",
                         "@type": "${type}",
                         "url": "${canonical}",
-                        ${shareImage ? `"image": {
+                        ${
+                            shareImage
+                                ? `"image": {
                                 "@type": "ImageObject",
                                 "url": "${shareImage}",
                                 "width": "${config.shareImageWidth}",
                                 "height": "${config.shareImageHeight}"
-                            },` : ``}
+                            },`
+                                : ``
+                        }
                         "publisher": {
                             "@type": "Organization",
                             "name": "${config.siteTitleMeta}",
@@ -63,6 +86,19 @@ const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
                         },
                         "description": "${description}"
                     }
+                `}</script>
+                <script>
+                    {`
+                       if (window.netlifyIdentity) {
+                        window.netlifyIdentity.on("init", user => {
+                          if (!user) {
+                            window.netlifyIdentity.on("login", () => {
+                              document.location.href = "/admin/";
+                            });
+                          }
+                        });
+                      }
+                    
                 `}</script>
             </Helmet>
             <ImageMeta image={shareImage} />
