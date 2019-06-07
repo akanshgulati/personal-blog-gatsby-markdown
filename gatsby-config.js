@@ -211,7 +211,7 @@ module.exports = {
                     },
                     {
                         // Add runtime caching of various other page resources
-                        urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/,
+                        urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|css)$/,
                         handler: `staleWhileRevalidate`,
                     },
                     {
@@ -221,7 +221,7 @@ module.exports = {
                     },
                     {
                         // Add runtime caching of various other page resources
-                        urlPattern: /\.html$/,
+                        urlPattern: /\.(html|json)$/,
                         handler: `networkFirst`,
                     },
                 ],
