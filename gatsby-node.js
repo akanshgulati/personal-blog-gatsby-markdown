@@ -19,23 +19,28 @@ exports.createPages = ({ graphql, actions }) => {
         // console.log("Entered in createposts");
         resolve(
             graphql(`
-            {
-                allMarkdownRemark {
-                    edges {
-                        node {
-                            frontmatter {
-                                slug
-                                tags {
-                                  id
+                {
+                    allMarkdownRemark(
+                        filter: {
+                            frontmatter: { draft: { ne: true } }
+                            fileAbsolutePath: { regex: "/posts/" }
+                        }
+                    ) {
+                        edges {
+                            node {
+                                frontmatter {
+                                    slug
+                                    tags {
+                                        id
+                                    }
                                 }
+                                fileAbsolutePath
                             }
-                            fileAbsolutePath
                         }
                     }
                 }
-            }`
+            `).then((result) => {
             // eslint-disable-next-line consistent-return
-            ).then((result) => {
                 // console.log("Post Edges->", result);
                 if (result.errors) {
                     return reject(result.errors)
@@ -46,7 +51,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 // console.log("Post Edges->", result.data.allMarkdownRemark);
 
-                const items = result.data.allMarkdownRemark.edges.filter(edge => edge.node.fileAbsolutePath.indexOf(`src/posts`) > -1)
+                const items = result.data.allMarkdownRemark.edges
                 let tags = new Set()
 
                 items.forEach(({ node }) => {
@@ -54,8 +59,7 @@ exports.createPages = ({ graphql, actions }) => {
                     // a `/:slug/` permalink.
                     node.url = `/${node.frontmatter.slug}/`
 
-                    node.frontmatter.tags.forEach(tag => tags.add(tag)
-                    )
+                    node.frontmatter.tags.forEach(tag => tags.add(tag))
 
                     // console.log("Creating Page - url", node.url, "slug", node.frontmatter.slug);
 
@@ -84,7 +88,8 @@ exports.createPages = ({ graphql, actions }) => {
                         }
                     },
                 })
-            }))
+            })
+        )
     })
 
     /**

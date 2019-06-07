@@ -18,6 +18,8 @@ module.exports = {
     themeColor: `#15171A`, // Used for Offline Manifest
     cover_image: ``,
 
+    logo: `/images/logo.png`,
+
     navigation: [
         {
             label: `Home`,
