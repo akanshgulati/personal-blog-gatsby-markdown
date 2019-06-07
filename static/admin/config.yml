@@ -16,7 +16,7 @@ collections:
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string", default: "", required: true}
       - {label: "Slug", name: "slug", widget: "string", required: true}
-      - {label: "Draft", name: "draft", widget: "boolean"}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
       - {label: "Publish Date", name: "published_at", widget: "datetime"}
       - {label: "Update Date", name: "updated_at", widget: "datetime"}
       - {label: "Featured", name: "featured", widget: "boolean", default: false}
@@ -25,3 +25,11 @@ collections:
       - {label: "Enable Comments", name: "comment", widget: "boolean"}
       - {label: "Author", name: "author", widget: "string", default: "akansh"}
       - {label: "Body", name: "body", widget: "markdown"}
+      - label: "Tags"
+        name: "tags"
+        widget: "select"
+        multiple: true
+        options:
+          - { label: "Javascript", value: "javascript" }
+          - { label: "How-to", value: "How to" }
+          - { label: "Education", value: "education" }
