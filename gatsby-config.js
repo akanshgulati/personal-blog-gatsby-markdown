@@ -219,6 +219,11 @@ module.exports = {
                         urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
                         handler: `staleWhileRevalidate`,
                     },
+                    {
+                        // Add runtime caching of various other page resources
+                        urlPattern: /\.html$/,
+                        handler: `networkFirst`,
+                    },
                 ],
             },
         },
