@@ -52,14 +52,14 @@ exports.createPages = ({ graphql, actions }) => {
                 // console.log("Post Edges->", result.data.allMarkdownRemark);
 
                 const items = result.data.allMarkdownRemark.edges
-                let tags = new Set()
+                // let tags = new Set()
 
                 items.forEach(({ node }) => {
                     // This part here defines, that our posts will use
                     // a `/:slug/` permalink.
                     node.url = `/${node.frontmatter.slug}/`
 
-                    node.frontmatter.tags.forEach(tag => tags.add(tag))
+                    // node.frontmatter.tags.forEach(tag => tags.add(tag))
 
                     // console.log("Creating Page - url", node.url, "slug", node.frontmatter.slug);
 

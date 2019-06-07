@@ -10,6 +10,9 @@ feature_image: >-
 meta_description: This is an example description
 comment: false
 author: akansh
+tags: 
+    - how-to
+    - education
 ---
 You can see this in first go now
 Making yet another change
