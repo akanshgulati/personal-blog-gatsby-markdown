@@ -309,7 +309,7 @@ html {
 
 body {
     overflow-x: hidden;
-    color: #3c484e;
+    color: rgba(0,0,0,.84);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.5rem;
     line-height: 1.6em;
@@ -446,9 +446,18 @@ a {
     color: #26a8ed;
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
+}
+.content-body a {
+    color: rgba(0,0,0,.84);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,.84);
+    padding-bottom: 0px;
+}
+.content-body a:hover {
+    text-decoration: none;
+    border-bottom-color: #26a8ed;
 }
 
 h1,
@@ -731,14 +740,14 @@ h6 {
 }
 
 .content-body pre {
-    margin: 0.4em 0 1.8em;
+    /* margin: 0.4em 0 1.8em;
     font-size: 1.6rem;
     line-height: 1.4em;
     white-space: pre-wrap;
     padding: 20px;
     background: var(--color-base);
     color: #fff;
-    border-radius: 12px;
+    border-radius: 12px; */
 }
 
 /* Header
@@ -1107,4 +1116,113 @@ h6 {
 
 .site-foot-nav-right a:last-child {
     padding-right: 0;
+}
+
+
+
+/* 
+Code Highlighter
+ */
+ code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+}
+.gatsby-highlight {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+    padding: 20px;
+    background: #001628;
+    padding: 20px;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+}
+.gatsby-highlight pre {
+    margin: 0;
+    font-size: 1.5rem;
+}
+.gatsby-highlight::before {
+    background: #ddd;
+    border-radius: 0 0 4px 4px;
+    color: var(--color-base);
+    font-size: 0.75rem;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    letter-spacing: 0.075em;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    right: 1.5rem;
+    text-align: right;
+    text-transform: uppercase;
+    top: 0;
+}
+.gatsby-highlight::before {
+    content: attr(data-language);;
+    background: #f7df1e;
+    font-weight: bolder
+}
+.gatsby-highlight pre code {
+    overflow-x: scroll
+}
+[class^="language-"] {
+    color: #f5d67b !Important;
+}
+
+.token.cdata,.token.comment,.token.doctype,.token.prolog {
+    color: #5e7671;
+    font-style: italic
+}
+
+.token.property,.token.punctuation,.token.tag {
+    color: #72e0d1
+}
+
+.token.attr-name {
+    color: #83ba52
+}
+
+.token.boolean,.token.number {
+    color: #fc9463
+}
+
+.token.attr-value,.token.selector {
+    color: #f5d67b
+}
+
+.token.entity,.token.operator,.token.url,.token.variable {
+    color: #aa7ee1
+}
+
+.token.atrule,.token.keyword,.token.string {
+    color: #83ba52
+}
+
+.token.important,.token.regex {
+    color: #e90
+}
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
 }

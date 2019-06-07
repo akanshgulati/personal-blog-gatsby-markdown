@@ -18,8 +18,6 @@ comment: false
 meta_description: 'This is an example description'
 ---
 
-# JavaScript MD5
-
 ## Demo
 [JavaScript MD5 Demo](https://blueimp.github.io/JavaScript-MD5/)
 
@@ -58,10 +56,29 @@ install the **blueimp-md5** package with [npm](https://www.npmjs.org/):
 ```sh
 npm install blueimp-md5
 ```
+```javascript
+// In your gatsby-config.js
+plugins: [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+        `gatsby-remark-prismjs`,
+        
+      ]
+    }
+  }
+]
+```
+
+```html
+<img src="image.jpg" intrinsicsize="800x600" />
+```
+
 
 Add a file **server.js** with the following content:
 
-```js
+```javascript
 require("http").createServer(function (req, res) {
     // The md5 module exports the md5() function:
     var md5 = require("./md5"),
@@ -131,3 +148,38 @@ The first one tests the browser integration, the second one the
 ## License
 The JavaScript MD5 script is released under the
 [MIT license](https://opensource.org/licenses/MIT).
+
+
+```javascript
+plugins: [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [`gatsby-remark-prismjs`],
+    },
+  },
+]
+```
+
+
+Trying it
+
+
+
+```javascript{numberLines: 5}
+// In your gatsby-config.js
+plugins: [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [`gatsby-remark-prismjs`],
+    },
+  },
+]
+```
+
+```css
+.item {
+  flex-grow: <number>; /* default 0 */
+}
+```

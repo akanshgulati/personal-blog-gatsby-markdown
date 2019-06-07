@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
-import { DiscussionEmbed } from "disqus-react";
+import { DiscussionEmbed } from "disqus-react"
 
 /**
 * Single post view (/:slug)
@@ -15,7 +15,7 @@ import { DiscussionEmbed } from "disqus-react";
 const Post = ({ data, location }) => {
     console.log(`post`, data, location)
     const post = data.markdownRemark
-    const disqusShortname = "https-try-akansh-com";
+    const disqusShortname = `https-try-akansh-com`
     const disqusConfig = {
         identifier: post.id,
         title: post.frontmatter.title,
@@ -35,7 +35,7 @@ const Post = ({ data, location }) => {
                                     {post.frontmatter.published_at}
                                 </time>
                                 
-                                {post.frontmatter.tags.map(({ frontmatter}) => (
+                                {post.frontmatter.tags.map(({ frontmatter }) => (
                                     <span key={frontmatter.name}>
                                         <span className="date-divider">/</span>
                                         <Link to={`tag/${frontmatter.slug}`}>{frontmatter.name}</Link>

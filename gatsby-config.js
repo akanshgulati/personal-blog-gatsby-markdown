@@ -36,10 +36,27 @@ module.exports = {
         description: config.siteDescriptionMeta,
     },
     mapping: {
-        'MarkdownRemark.frontmatter.tags': `MarkdownRemark.frontmatter.tag_id`,
-        'MarkdownRemark.frontmatter.author': `MarkdownRemark.frontmatter.author_id`,
+        "MarkdownRemark.frontmatter.tags": `MarkdownRemark.frontmatter.tag_id`,
+        "MarkdownRemark.frontmatter.author": `MarkdownRemark.frontmatter.author_id`,
     },
     plugins: [
+        {
+            resolve: `gatsby-transformer-remark`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-remark-prismjs`,
+                        options: {
+                            classPrefix: `language-`,
+                            inlineCodeMarker: null,
+                            aliases: {},
+                            showLineNumbers: false,
+                            noInlineHighlight: false,
+                        },
+                    },
+                ],
+            },
+        },
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -82,7 +99,6 @@ module.exports = {
         },
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
-        `gatsby-transformer-remark`,
         {
             resolve: `gatsby-source-ghost`,
             options:
@@ -121,9 +137,7 @@ module.exports = {
                     }
                 }
               `,
-                feeds: [
-                    generateRSSFeed(config),
-                ],
+                feeds: [generateRSSFeed(config)],
             },
         },
         {
@@ -207,6 +221,6 @@ module.exports = {
                     },
                 ],
             },
-        }
+        },
     ],
 }
