@@ -14,7 +14,7 @@ tags:
 created_at: "2018-12-14T17:00:45.000+00:00"
 slug: 'javascript-md5'
 author: 'akansh'
-comment: true
+comment: false
 meta_description: 'This is an example description'
 ---
 

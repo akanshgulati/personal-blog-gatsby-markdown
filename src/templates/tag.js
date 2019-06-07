@@ -86,7 +86,7 @@ export const pageQuery = graphql`
             sort: { fields: [frontmatter___published_at], order: DESC }
             filter: {
                 frontmatter: {
-                    tags: { elemMatch: { frontmatter: { name: { eq: $slug } } } }
+                    tags: { elemMatch: { frontmatter: { slug: { eq: $slug } } } }
                 }
             }
             skip: $skip
@@ -102,6 +102,7 @@ export const pageQuery = graphql`
                         tags {
                             frontmatter {
                                 name
+                                slug
                             }
                         }
                         feature_image

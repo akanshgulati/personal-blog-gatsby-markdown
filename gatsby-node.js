@@ -121,14 +121,21 @@ exports.createPages = ({ graphql, actions }) => {
             
                 // finding all tags available
                 const items = result.data.allMarkdownRemark.edges
-
-                // console.log("Tag Edges->", items.length);
-
+                
                 const postsPerPage = config.postsPerPage
 
-                items.forEach(({ node }) => {
+                items.forEach(async ({ node }) => {
                     // const totalPosts = 1 || node.postCount !== null ? node.postCount : 0
-                    const totalPosts = 1
+                    const tagSlug = node.frontmatter.slug
+                    const totalPostsRemark = await graphql(`
+                    {
+                        allMarkdownRemark(filter: {frontmatter: {tags: {elemMatch: {frontmatter: {slug: {eq: "${tagSlug}" }}}}}}) {
+                          totalCount
+                        }
+                      }`)
+                    
+                    const totalPosts = totalPostsRemark.data.allMarkdownRemark.totalCount || 0
+                    
                     const numberOfPages = Math.ceil(totalPosts / postsPerPage)
 
                     // This part here defines, that our tag pages will use
