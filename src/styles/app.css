@@ -1151,9 +1151,7 @@ pre[class*="language-"] {
     border-radius: 8px;
     overflow: hidden;
     margin: 10px 0;
-    padding: 20px;
     background: #001628;
-    padding: 20px;
     font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 .gatsby-highlight pre {
@@ -1181,7 +1179,13 @@ pre[class*="language-"] {
     font-weight: bolder
 }
 .gatsby-highlight pre code {
-    overflow-x: scroll
+    white-space: pre;
+    -webkit-overflow-scrolling: touch;
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 20px;
+    min-width: 100px;
 }
 [class^="language-"] {
     color: #f5d67b !Important;

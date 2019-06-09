@@ -51,7 +51,7 @@ exports.createPages = ({ graphql, actions }) => {
                 }
                 // console.log("Post Edges->", result.data.allMarkdownRemark);
 
-                const items = result.data.allMarkdownRemark.edges
+                const items = result.data.allMarkdownRemark.edges.filter(({node}) => !node.frontmatter.draft);
                 // let tags = new Set()
 
                 items.forEach(({ node }) => {
@@ -73,7 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
                         },
                     })
                 })
-
+                
                 // Pagination for posts, e.g., /, /page/2, /page/3
                 paginate({
                     createPage,
@@ -317,7 +317,6 @@ exports.createPages = ({ graphql, actions }) => {
     //                     },
     //                 })
     //             })
-
     //             return resolve()
     //         })
     //     )

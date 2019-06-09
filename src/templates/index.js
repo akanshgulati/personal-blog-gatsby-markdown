@@ -72,7 +72,10 @@ export const pageQuery = graphql`
             sort: { order: DESC, fields: [frontmatter___published_at] }
             limit: $limit
             skip: $skip
-            filter: {fileAbsolutePath: {regex: "/src\/posts/"}}
+            filter: {
+                frontmatter: { draft: { ne: true } }
+                fileAbsolutePath: { regex: "/posts/" }
+            }
         ) {
             edges {
               node {
