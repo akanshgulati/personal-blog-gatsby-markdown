@@ -12,14 +12,16 @@ import config from '../../../utils/siteConfig'
 import { tags as tagsHelper } from '@tryghost/helpers'
 
 const ArticleMetaGhost = ({ data, settings, canonical }) => {
-    console.log(`ghostpost->`, data)
+    // console.log(`ghostpost->`, data)
     const ghostPost = data
     settings = config
 
     const author = getAuthorProperties(ghostPost.frontmatter.author.frontmatter)
     const publicTags = _.map(tagsHelper(ghostPost, { visibility: `public`, fn: tag => tag }), `name`)
     const primaryTag = publicTags[0] || ``
-    const shareImage = ghostPost.frontmatter.feature_image ? ghostPost.frontmatter.feature_image : _.get(config, `cover_image`, null)
+    const shareImage = ghostPost.frontmatter.feature_image
+        ? ghostPost.frontmatter.feature_image.childImageSharp.fluid.src
+        : _.get(config, `cover_image`, null);
     const publisherLogo = config.siteIcon ? url.resolve(config.siteUrl, config.siteIcon) : null
 
     return (

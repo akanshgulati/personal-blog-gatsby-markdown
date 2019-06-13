@@ -14,7 +14,7 @@ import { MetaData } from '../components/common/meta'
 *
 */
 const Index = ({ data, location, pageContext }) => {
-    console.log(`Index`, data)
+    // console.log(`Index`, data)
     const posts = data.allMarkdownRemark.edges
 
     return (
@@ -67,7 +67,7 @@ export default Index
 // `
 
 export const pageQuery = graphql`
-    query MardownPostQuery($limit: Int!, $skip: Int!) {
+    query MarkdownPostQuery($limit: Int!, $skip: Int!) {
         allMarkdownRemark(
             sort: { order: DESC, fields: [frontmatter___published_at] }
             limit: $limit
@@ -85,7 +85,13 @@ export const pageQuery = graphql`
                   title
                   date
                   draft
-                  feature_image
+                  feature_image {
+                    childImageSharp {
+                        fluid(maxWidth: 400, maxHeight: 250) {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                  }
                   featured
                   published_at
                   weight

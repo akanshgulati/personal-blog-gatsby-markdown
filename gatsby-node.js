@@ -110,7 +110,6 @@ exports.createPages = ({ graphql, actions }) => {
                         slug
                         description
                         name
-                        feature_image
                       }
                     }
                   }

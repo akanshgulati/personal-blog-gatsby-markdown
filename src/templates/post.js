@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
@@ -12,8 +13,9 @@ import { DiscussionEmbed } from "disqus-react"
 * This file renders a single post and loads all the content.
 *
 */
-const Post = ({ data, location }) => {
-    console.log(`post`, data, location)
+const Post = ({ data, location, pageContext }) => {
+    // console.log(`POST -> `, data, pageContext)
+
     const post = data.markdownRemark
     const disqusShortname = `https-try-akansh-com`
     const disqusConfig = {
@@ -48,10 +50,13 @@ const Post = ({ data, location }) => {
                         </header>
                         {post.frontmatter.feature_image ? (
                             <figure className="post-feature-image">
-                                <img
+                                {post.frontmatter.feature_image && post.frontmatter.feature_image.childImageSharp && 
+                                <Img fluid={post.frontmatter.feature_image.childImageSharp.fluid}/>
+                                }
+                                {/* <img
                                     src={post.frontmatter.feature_image}
                                     alt={post.frontmatter.title}
-                                />
+                                /> */}
                             </figure>
                         ) : null}
                         <section className="post-full-content">
@@ -101,7 +106,13 @@ export const postQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         slug
         title
-        feature_image
+        feature_image {
+            childImageSharp {
+              fluid(maxWidth: 1000, maxHeight: 500) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         author {
             frontmatter {
                 name

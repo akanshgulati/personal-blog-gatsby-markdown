@@ -8,6 +8,6 @@ ghpages.publish(
         repo: `https://github.com/akanshgulati/gatsby-starter-ghost.git`,
     },
     () => {
-        console.log(`Deploy Complete!`)
+        // console.log(`Deploy Complete!`)
     }
 )

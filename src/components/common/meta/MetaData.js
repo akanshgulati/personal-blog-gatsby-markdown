@@ -22,7 +22,7 @@ const MetaData = ({
     location,
     type,
 }) => {
-    console.log(`metaData->`, data, type)
+    // console.log(`metaData->`, data, type)
     const canonical = url.resolve(config.siteUrl, location.pathname, `/`)
     const { ghostPage } = data
     settings = settings.allGhostSettings.edges[0].node

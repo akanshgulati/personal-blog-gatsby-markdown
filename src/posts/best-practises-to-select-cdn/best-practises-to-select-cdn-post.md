@@ -2,7 +2,7 @@
 title: 'Best practices to select CDN for 3rd party library'
 date: 2019-06-10T00:00:00+5:30
 draft: false
-feature_image: "/images/posts/cdn-network-example.png"
+feature_image: cdn-network-example.png
 featured: false
 published_at: 2019-06-10T00:00:00+5:30
 updated_at: 2019-06-10T00:00:00+5:30
@@ -29,9 +29,9 @@ Let's take an example of a most commonly used library, **jQuery**, which is avai
 3. [ajax.googleapis.com](https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js) - By Google
 4. [jsdelivr.net](https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js) - By ProspectOne
 
-![](/images/posts/cdn-ttfb-comparison.jpg)
+![Comparison of various CDNs for jQuery](cdn-ttfb-comparison.jpg)
 
-You can see that the CDN link which jQuery shares on its official website is performing more than 75% slow than other CDNs if all regions have equal importance for you.
+You can see that the CDN link shared on **jQuery** official website is performing around 75% slower than other CDNs if all regions have equal importance for you. Cloudflare CDN, cdnjs.com is performing way better than others.
 
 ## Security of resource
 

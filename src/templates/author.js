@@ -16,7 +16,7 @@ const Author = ({ data, location, pageContext }) => {
     const posts = data.allMarkdownRemark.edges
     const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
     const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
-    console.log(`Authors -> `, author)
+    // console.log(`Authors -> `, author)
     return (
         <>
             <MetaData
@@ -86,7 +86,13 @@ export const pageQuery = graphql`
                                 name
                             }
                         }
-                        feature_image
+                        feature_image {
+                            childImageSharp {
+                                fluid(maxWidth: 400, maxHeight: 250) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                              }
+                        }
                         author {
                             frontmatter {
                                 name

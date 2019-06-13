@@ -9,7 +9,7 @@ import ImageMeta from './ImageMeta'
 import config from '../../../utils/siteConfig'
 
 const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
-    console.log(`WebsiteMeta ->`, data, name, description, image)
+    // (`WebsiteMeta ->`, data, name, description, image)
     const settings = config || settings.allGhostSettings.edges[0].node
 
     const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)

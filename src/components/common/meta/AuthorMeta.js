@@ -9,7 +9,7 @@ import getAuthorProperties from './getAuthorProperties'
 import config from '../../../utils/siteConfig'
 
 const AuthorMeta = ({ data, settings, canonical }) => {
-    console.log(`AuthorMeta->`, data)
+    // console.log(`AuthorMeta->`, data)
     // settings = settings.allGhostSettings.edges[0].node
 
     const author = getAuthorProperties(data)

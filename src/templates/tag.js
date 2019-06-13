@@ -12,7 +12,7 @@ import { MetaData } from "../components/common/meta"
  *
  */
 const Tag = ({ data, location, pageContext }) => {
-    console.log(`TAGS -> `, data, pageContext)
+    // console.log(`TAGS -> `, data, pageContext)
 
     const tagName = pageContext.tag.name
     const tagDescription = pageContext.tag.description
@@ -105,7 +105,13 @@ export const pageQuery = graphql`
                                 slug
                             }
                         }
-                        feature_image
+                        feature_image {
+                            childImageSharp {
+                                fluid(maxWidth: 400, maxHeight: 250) {
+                                    ...GatsbyImageSharpFluid
+                                }
+                            }
+                          }
                         author {
                             frontmatter {
                                 name

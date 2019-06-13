@@ -41,9 +41,26 @@ module.exports = {
     },
     plugins: [
         {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `posts`),
+                name: `posts`,
+            },
+        },
+        `gatsby-plugin-sharp`,
+        `gatsby-transformer-sharp`,
+        {   
             resolve: `gatsby-transformer-remark`,
             options: {
                 plugins: [
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            maxWidth: 740,
+                            quality: 90,
+                            withWebp: true,
+                        },
+                    },
                     {
                         resolve: `gatsby-remark-prismjs`,
                         options: {
@@ -62,13 +79,6 @@ module.exports = {
                         },
                     },
                 ],
-            },
-        },
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                path: path.join(__dirname, `src`, `posts`),
-                name: `posts`,
             },
         },
         {
@@ -104,8 +114,6 @@ module.exports = {
                 name: `images`,
             },
         },
-        `gatsby-plugin-sharp`,
-        `gatsby-transformer-sharp`,
         {
             resolve: `gatsby-source-ghost`,
             options:
