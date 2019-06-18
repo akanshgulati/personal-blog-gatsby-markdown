@@ -69,7 +69,12 @@ export default Author
 export const pageQuery = graphql`
     query MarkDownAuthorQuery($slug: String!, $limit: Int!, $skip: Int!) {
         allMarkdownRemark(
-            filter: {frontmatter: {author: {frontmatter: {slug: {eq: $slug}}}}}
+            filter: {
+                frontmatter: {
+                    author: {frontmatter: {slug: {eq: $slug}}}
+                    draft: { ne: true }
+                }
+            }
             skip: $skip, 
             limit: $limit
         ){

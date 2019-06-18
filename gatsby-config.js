@@ -166,7 +166,6 @@ module.exports = {
                         node: frontmatter {
                           slug
                           updated_at
-                          feature_image
                         }
                       }
                     }
@@ -176,7 +175,6 @@ module.exports = {
                         node: frontmatter {
                           slug
                           updated_at
-                          feature_image
                         }
                       }
                     }
@@ -186,7 +184,6 @@ module.exports = {
                         node: frontmatter {
                           slug
                           updated_at
-                          feature_image
                         }
                       }
                     }

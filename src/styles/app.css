@@ -24,6 +24,7 @@ what's here to work the way you'd like it to.
     /* Colours */
     --color-primary: #3eb0ef;
     --color-base: #15171A;
+    --color-black-light: #444;
     --color-secondary: #5B7A81;
     --color-border: #c7d5d8;
     --color-bg: #f5f5f5;
@@ -1123,6 +1124,7 @@ h6 {
 /* 
 Code Highlighter
  */
+
  code[class*="language-"],
 pre[class*="language-"] {
 	color: #ccc;
@@ -1146,6 +1148,16 @@ pre[class*="language-"] {
 	hyphens: none;
 
 }
+code.language-text {
+    font-size: 90%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    padding: .1rem .3rem .2rem;
+    border-radius: .2rem;
+    background: var(--color-black-light);
+    color: #ffffff !important;
+}
+
 .gatsby-highlight {
     position: relative;
     border-radius: 8px;

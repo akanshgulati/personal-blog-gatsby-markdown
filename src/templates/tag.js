@@ -87,6 +87,7 @@ export const pageQuery = graphql`
             filter: {
                 frontmatter: {
                     tags: { elemMatch: { frontmatter: { slug: { eq: $slug } } } }
+                    draft: { ne: true }
                 }
             }
             skip: $skip

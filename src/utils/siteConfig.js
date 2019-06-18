@@ -1,5 +1,5 @@
 module.exports = {
-    siteUrl: `https://try.akansh.com`, // Site domain. Do not include a trailing slash!
+    siteUrl: `https://blog.akansh.com`, // Site domain. Do not include a trailing slash!
 
     postsPerPage: 12, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
 
@@ -24,10 +24,6 @@ module.exports = {
         {
             label: `Home`,
             url: `/`,
-        },
-        {
-            label: `How To`,
-            url: `/tag/how-to/`,
-        },
+        }
     ],
 }
