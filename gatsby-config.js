@@ -211,34 +211,6 @@ module.exports = {
         },
         `gatsby-plugin-react-helmet`,
         `gatsby-plugin-force-trailing-slashes`,
-        {
-            resolve: `gatsby-plugin-offline`,
-            options: {
-                skipWaiting: true,
-                clientsClaim: true,
-                runtimeCaching: [
-                    {
-                        urlPattern: /^[^\.]*(\.html)?$/,
-                        handler: `networkFirst`,
-                    },
-                    {
-                        // Add runtime caching of various other page resources
-                        urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|woff|woff2|json)$/,
-                        handler: `staleWhileRevalidate`,
-                    },
-                    {
-                        // Use cacheFirst since these don't need to be revalidated (same RegExp
-                        // and same reason as above)
-                        urlPattern: /(\.js$|\.css$|static\/)/,
-                        handler: `networkFirst`,
-                    },
-                    {
-                        // Google Fonts CSS (doesn't end in .css so we need to specify it)
-                        urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
-                        handler: `staleWhileRevalidate`,
-                    }
-                ],
-            },
-        },
+        `gatsby-plugin-offline`,
     ],
 }
