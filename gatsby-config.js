@@ -214,6 +214,8 @@ module.exports = {
         {
             resolve: `gatsby-plugin-offline`,
             options: {
+                skipWaiting: true,
+                clientsClaim: true,
                 runtimeCaching: [
                     {
                         urlPattern: /^[^\.]*(\.html)?$/,
@@ -221,7 +223,7 @@ module.exports = {
                     },
                     {
                         // Add runtime caching of various other page resources
-                        urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|woff|woff2)$/,
+                        urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|woff|woff2|json)$/,
                         handler: `staleWhileRevalidate`,
                     },
                     {
@@ -234,12 +236,7 @@ module.exports = {
                         // Google Fonts CSS (doesn't end in .css so we need to specify it)
                         urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
                         handler: `staleWhileRevalidate`,
-                    },
-                    {
-                        // Add runtime caching of various other page resources
-                        urlPattern: /\.(html|json)$/,
-                        handler: `networkFirst`,
-                    },
+                    }
                 ],
             },
         },
