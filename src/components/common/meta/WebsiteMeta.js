@@ -38,8 +38,6 @@ const WebsiteMeta = ({ data, canonical, name, description, image, type }) => {
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:url" content={canonical} />
 
-                <script src="https://identity.netlify.com/v1/netlify-identity-widget.js" />
-
                 {config.siteTwitterHandle && (
                     <meta
                         name="twitter:site"
