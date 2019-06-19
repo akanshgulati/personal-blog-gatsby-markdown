@@ -214,22 +214,34 @@ module.exports = {
         {
             resolve: `gatsby-plugin-offline`,
             options: {
-                skipWaiting: true,
-                clientsClaim: true,
                 runtimeCaching: [
+                    {
+                        urlPattern: /^[^\.]*(\.html)?$/,
+                        handler: `networkFirst`,
+                    },
                     {
                         // Add runtime caching of various other page resources
                         urlPattern: /\.(png|jpg|jpeg|webp|svg|gif|tiff|woff|woff2)$/,
                         handler: `staleWhileRevalidate`,
                     },
                     {
+                        // Use cacheFirst since these don't need to be revalidated (same RegExp
+                        // and same reason as above)
+                        urlPattern: /(\.js$|\.css$|static\/)/,
+                        handler: `networkFirst`,
+                    },
+                    {
                         // Google Fonts CSS (doesn't end in .css so we need to specify it)
                         urlPattern: /^https?:\/\/fonts\.googleapis\.com\/css/,
                         handler: `staleWhileRevalidate`,
                     },
+                    {
+                        // Add runtime caching of various other page resources
+                        urlPattern: /\.(html|json)$/,
+                        handler: `networkFirst`,
+                    },
                 ],
             },
         },
-
     ],
 }
