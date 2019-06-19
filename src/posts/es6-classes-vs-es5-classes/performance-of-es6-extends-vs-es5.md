@@ -14,7 +14,7 @@ tags:
     - javascript
 slug: 'es6-extends-vs-es5-object-create-for-inheritance'
 author: 'akansh'
-comment: false
+comment: true
 meta_description: ''
 ---
 

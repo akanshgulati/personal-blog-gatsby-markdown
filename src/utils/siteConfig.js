@@ -24,6 +24,10 @@ module.exports = {
         {
             label: `Home`,
             url: `/`,
-        }
+        },
+        {
+            label: `About me`,
+            url: `https://akansh.com`,
+        },
     ],
 }

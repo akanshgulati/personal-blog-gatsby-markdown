@@ -1242,3 +1242,19 @@ code.language-text {
 .token.cdata {
 	color: #999;
 }
+
+.show-comment-button {
+    padding: 30px;
+    border: 1px solid var(--color-base);
+    text-align: center;
+    width: 70%;
+    font-weight: 700;
+    border-radius: 5px;
+    margin: 20px auto;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.show-comment-button:hover {
+    background-color: var(--color-base);
+    color: white;
+}
