@@ -28,7 +28,7 @@
     "lint": "eslint . --ext .js --cache --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:server": "netlify-lambda serve src/lambda",
-    "build:server": "netlify-lambda serve src/lambda",
+    "build:server": "netlify-lambda build src/lambda",
     "start": "concurrently 'yarn dev' 'yarn start:server'"
   },
   "devDependencies": {
