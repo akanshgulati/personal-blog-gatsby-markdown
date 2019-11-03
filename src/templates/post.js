@@ -6,7 +6,7 @@ import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 import { DiscussionEmbed } from "disqus-react"
-import Clap from '../components/common/Clap'
+import Clap from '../components/common/MClap'
 /**
 * Single post view (/:slug)
 *
