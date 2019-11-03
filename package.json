@@ -23,11 +23,12 @@
   "scripts": {
     "deploy:github": "npm run build && node ./scripts/deploy-github",
     "serve": "gatsby build && NODE_ENV=production gatsby serve",
-    "build": "gatsby build",
+    "build": "gatsby build && NODE_ENV=production yarn build:server",
     "dev": "gatsby develop",
     "lint": "eslint . --ext .js --cache --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:server": "netlify-lambda serve src/lambda",
+    "build:server": "netlify-lambda serve src/lambda",
     "start": "concurrently 'yarn dev' 'yarn start:server'"
   },
   "devDependencies": {
