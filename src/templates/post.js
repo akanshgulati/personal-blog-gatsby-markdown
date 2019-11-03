@@ -6,7 +6,7 @@ import { Link } from 'gatsby'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 import { DiscussionEmbed } from "disqus-react"
-
+import Clap from '../components/common/Clap'
 /**
 * Single post view (/:slug)
 *
@@ -33,13 +33,13 @@ class Post extends React.Component {
         const post = data.markdownRemark
         const disqusShortname = `https-try-akansh-com`
         const disqusConfig = {
-            identifier: post.slug,
+            identifier: post.frontmatter.id,
             title: post.frontmatter.title,
         }
 
         return (
             <>
-                <MetaData data={data} location={location} type="article" />
+                <MetaData data={data} location={location} id={post.frontmatter.id} type="article" />
                 <Layout>
                     <div className="container">
                         <article className="content">
@@ -88,6 +88,7 @@ class Post extends React.Component {
                                 />
                             </section>
                         </article>
+                        <Clap/>
                         {post.frontmatter.comment && !this.state.commentsEnabled && <div className="show-comment-button" onClick={this.showComments}>Show Comments</div> }
                         {post.frontmatter.comment && this.state.commentsEnabled && <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />}
                     </div>
@@ -152,7 +153,8 @@ export const postQuery = graphql`
         }
         meta_description
         published_at(formatString: "MMMM DD, YYYY")
-        comment
+        comment,
+        id
       }
       excerpt
     }

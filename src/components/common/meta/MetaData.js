@@ -21,6 +21,7 @@ const MetaData = ({
     image,
     location,
     type,
+    id
 }) => {
     // console.log(`metaData->`, data, type)
     const canonical = url.resolve(config.siteUrl, location.pathname, `/`)
@@ -32,6 +33,7 @@ const MetaData = ({
             <ArticleMeta
                 data={data.markdownRemark}
                 canonical={canonical}
+                id={id}
             />
         )
     } else if (type === `tag`) {

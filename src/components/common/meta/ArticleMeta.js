@@ -11,7 +11,7 @@ import config from '../../../utils/siteConfig'
 
 import { tags as tagsHelper } from '@tryghost/helpers'
 
-const ArticleMetaGhost = ({ data, settings, canonical }) => {
+const ArticleMetaGhost = ({ data, settings, canonical, id }) => {
     // console.log(`ghostpost->`, data)
     const ghostPost = data
     settings = config
@@ -23,6 +23,7 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
         ? ghostPost.frontmatter.feature_image.childImageSharp.fluid.src
         : _.get(config, `cover_image`, null);
     const publisherLogo = config.siteIcon ? url.resolve(config.siteUrl, config.siteIcon) : null
+    const articleId = id;
 
     return (
         <>
@@ -113,6 +114,9 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
                         }
                     }
                 `}</script>
+                <script type="application/javascript">
+                    {`console.log("Called"); window.pageId="${articleId}"`}
+                </script>
             </Helmet>
             <ImageMeta image={shareImage} />
         </>

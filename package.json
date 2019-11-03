@@ -26,9 +26,13 @@
     "build": "gatsby build",
     "dev": "gatsby develop",
     "lint": "eslint . --ext .js --cache --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:server": "netlify-lambda serve src/lambda",
+    "start": "concurrently 'yarn dev' 'yarn start:server'"
   },
   "devDependencies": {
+    "@mojs/core": "^0.288.2",
+    "concurrently": "^5.0.0",
     "eslint": "5.16.0",
     "eslint-plugin-ghost": "0.2.0",
     "eslint-plugin-react": "7.13.0",
@@ -45,6 +49,7 @@
     "gatsby-plugin-advanced-sitemap": "1.0.6",
     "gatsby-plugin-feed": "2.2.2",
     "gatsby-plugin-force-trailing-slashes": "1.0.4",
+    "gatsby-plugin-google-analytics": "^2.1.23",
     "gatsby-plugin-manifest": "2.1.1",
     "gatsby-plugin-offline": "2.1.1",
     "gatsby-plugin-react-helmet": "3.0.12",
@@ -58,6 +63,8 @@
     "gatsby-transformer-remark": "^2.3.12",
     "gatsby-transformer-sharp": "2.1.19",
     "lodash": "4.17.11",
+    "mongodb": "^3.3.3",
+    "netlify-lambda": "^1.6.3",
     "prismjs": "^1.16.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",

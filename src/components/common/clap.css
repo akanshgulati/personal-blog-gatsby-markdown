@@ -1,0 +1,109 @@
+/*====================
+        Shockwave animation
+======================*/
+
+@keyframes shockwave {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 2px #3eb0ef;
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+        box-shadow: 0 0 50px #127def, inset 0 0 10px #3eb0ef;
+    }
+}
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+aside.share-icon {
+    position: fixed;
+    z-index: 10;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.svg-icon {
+    cursor: pointer;
+}
+.svg-icon svg {
+    fill: #3eb0ef;
+    height: 30px;
+    width: 30px;
+}
+/*====================
+    Clap CSS
+======================*/
+.clap {
+    position: relative;
+    outline: 1px solid transparent;
+    border-radius: 50%;
+    border: 1px solid #bdc3c7;
+    width: 50px;
+    height: 50px;
+    background: none;
+}
+
+.clap:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    border-radius: 50%;
+    width: 49px;
+    height: 49px;
+}
+
+.clap:hover {
+    cursor: pointer;
+    border: 1px solid #3eb0ef;
+    transition: border-color 0.3s ease-in;
+}
+
+.clap:hover:after {
+    animation: shockwave 1s ease-in infinite;
+}
+
+.clap svg {
+    width: 25px;
+    fill: none;
+    stroke: #3eb0ef;
+    stroke-width: 2px;
+}
+
+.clap svg.checked {
+    fill: #3eb0ef;
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+.clap .clap--count {
+    position: absolute;
+    top: -50px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: white;
+    background: #3eb0ef;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+}
+
+.clap .clap--count-total {
+    position: absolute;
+    font-size: 0.8rem;
+    width: 50px;
+    text-align: center;
+    left: 0;
+    top: -22.8571428571px;
+    color: #bdc3c7;
+}

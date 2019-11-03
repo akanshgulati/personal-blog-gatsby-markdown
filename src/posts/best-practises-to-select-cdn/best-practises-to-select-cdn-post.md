@@ -15,6 +15,7 @@ slug: 'best-practices-to-select-cdn-for-third-party-libraries'
 author: 'akansh'
 comment: false
 meta_description: ''
+id: 'cdn-practise'
 ---
 
 Most third party libraries shares CDN (Content Delivery Network) links on their website but generally many CDN's offers the same library and you might end up using a poor CDN which can effect your page load speed and can add a big security risk to your website. This tutorial is about choosing a right CDN for any 3rd party library, be it CSS framework or JS library. Here are a few best practices: 

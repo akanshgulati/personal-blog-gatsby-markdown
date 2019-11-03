@@ -1,6 +1,6 @@
 [build]
   command = "gatsby build"
   publish = "public/"
-
+  functions = "lambda" #  netlify-lambda reads this
 [template]
   incoming-hooks = ["Ghost"]

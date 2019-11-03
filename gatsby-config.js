@@ -1,4 +1,5 @@
 const path = require(`path`)
+const proxy = require("http-proxy-middleware")
 
 const config = require(`./src/utils/siteConfig`)
 const generateRSSFeed = require(`./src/utils/rss/generate-feed`)
@@ -49,7 +50,7 @@ module.exports = {
         },
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
-        {   
+        {
             resolve: `gatsby-transformer-remark`,
             options: {
                 plugins: [
@@ -212,4 +213,15 @@ module.exports = {
         `gatsby-plugin-react-helmet`,
         `gatsby-plugin-force-trailing-slashes`
     ],
+    developMiddleware: app => {
+        app.use(
+            "/.netlify/functions/",
+            proxy({
+                target: "http://localhost:9000",
+                pathRewrite: {
+                    "/.netlify/functions/": "",
+                },
+            })
+        )
+    },
 }

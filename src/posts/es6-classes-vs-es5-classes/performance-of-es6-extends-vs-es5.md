@@ -16,6 +16,7 @@ slug: 'es6-extends-vs-es5-object-create-for-inheritance'
 author: 'akansh'
 comment: true
 meta_description: ''
+id: 'extend-functionality'
 ---
 
 While reading about the new features rolled out in ES6(2015), you will come across a word, **"Class"**, that has quite similar functionality as the previous Object Oriented languages such as Java, Python has. Some of the ES6 features, like the introduction of **let and const**, improved the way to declare variables, but the introduction of the **map, filters** over array just improved the code readability only. Similarly, the concept of Class was there in ES5 also, but it is difficult to implement class in ES5. 
