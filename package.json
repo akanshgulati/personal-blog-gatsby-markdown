@@ -63,7 +63,7 @@
     "gatsby-source-ghost": "3.3.3",
     "gatsby-transformer-remark": "^2.3.12",
     "gatsby-transformer-sharp": "2.1.19",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "mongodb": "^3.3.3",
     "netlify-lambda": "^1.6.3",
     "prismjs": "^1.16.0",
