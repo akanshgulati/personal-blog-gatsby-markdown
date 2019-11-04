@@ -163,10 +163,10 @@ module.exports = {
                 {
                     allPosts: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}) {
                       edges: nodes {
-                        id
                         node: frontmatter {
                           slug
                           updated_at
+                          id:slug
                         }
                       }
                     }
@@ -176,6 +176,7 @@ module.exports = {
                         node: frontmatter {
                           slug
                           updated_at
+                          id:slug
                         }
                       }
                     }
@@ -185,6 +186,7 @@ module.exports = {
                         node: frontmatter {
                           slug
                           updated_at
+                          id:slug
                         }
                       }
                     }
