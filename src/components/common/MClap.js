@@ -208,7 +208,7 @@ export default class Clap extends React.Component {
                 </div>
                 <button onClick={() => {
                     this.onTwitterClick()
-                }} style={{ marginTop: '10px', outline: 0 }}>
+                }} style={{ marginTop: '10px', outline: 0, backgroundColor: "transparent" }}>
                     {this.renderTwitterIcon()}
                 </button>
             </aside>
@@ -277,7 +277,6 @@ export default class Clap extends React.Component {
 
         const userId = this.getUserId()
         setTimeout(() => {
-            console.log("Called here in clap")
             const url = `${GetClap}?pageId=${window.pageId}&userId=${userId}`
             fetch(url).then(resp => resp.json()).then(resp => {
                 this.setState(function (prevState) {
