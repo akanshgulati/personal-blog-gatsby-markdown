@@ -212,8 +212,14 @@ module.exports = {
                 createLinkInHead: true,
             },
         },
+        {
+            resolve: `gatsby-plugin-google-analytics`,
+            options: {
+                trackingId: "UA-151385213-1",
+            }
+        },
         `gatsby-plugin-react-helmet`,
-        `gatsby-plugin-force-trailing-slashes`
+        `gatsby-plugin-force-trailing-slashes`,
     ],
     developMiddleware: app => {
         app.use(
