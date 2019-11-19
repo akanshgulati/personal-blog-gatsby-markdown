@@ -1,5 +1,7 @@
 # dist: xenial (the default) or newer required
 language: node_js # Node 10 LTS or later required
+node_js:
+  - '10'
 addons:
   chrome: stable # make Chrome available
 before_install:
