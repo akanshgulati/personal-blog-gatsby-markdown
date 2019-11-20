@@ -207,7 +207,6 @@ exports.createPages = ({ graphql, actions }) => {
                       frontmatter {
                         author_id
                         slug
-                        profile_image
                         name
                         twitter
                         facebook

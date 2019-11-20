@@ -1,0 +1,35 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 2,
+      "url": [
+        "http://localhost:8080/",
+        "http://localhost:8080/tag/javascript",
+        "http://localhost:8080/author/akansh",
+        "http://localhost:8080/essential-tools-and-services-for-student-developer/"
+      ]
+    },
+    "assert": {
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "first-contentful-paint": [
+          "error",
+          {
+            "maxNumericValue": 1250,
+            "aggregationMethod": "median"
+          }
+        ],
+        "interactive": [
+          "error",
+          {
+            "maxNumericValue": 3500,
+            "aggregationMethod": "median"
+          }
+        ]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

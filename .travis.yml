@@ -9,4 +9,6 @@ before_install:
 script:
   - yarn run build # build your site
 after_success:
-  - lhci autorun --upload.target=temporary-public-storage # run lighthouse CI against your static site
+  - npx http-server -p 8080 ./public &
+  - lhci healthcheck --fatal
+  - lhci autorun # run lighthouse CI against your static site
