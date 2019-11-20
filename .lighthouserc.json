@@ -15,17 +15,20 @@
         "first-contentful-paint": [
           "error",
           {
-            "maxNumericValue": 1250,
-            "aggregationMethod": "median"
+            "maxNumericValue": 2500,
+            "aggregationMethod": "optimistic"
           }
         ],
         "interactive": [
           "error",
           {
-            "maxNumericValue": 3500,
-            "aggregationMethod": "median"
+            "maxNumericValue": 5000,
+            "aggregationMethod": "optimistic"
           }
-        ]
+        ],
+        "uses-text-compression": "off",
+        "uses-long-cache-ttl": "off",
+        "uses-http2": "off"
       }
     },
     "upload": {

@@ -9,6 +9,6 @@ before_install:
 script:
   - yarn run build # build your site
 after_success:
-  - npx http-server -p 8080 ./public &
+  - npx http-server -p 8080 ./public & >> dev/null
   - lhci healthcheck --fatal
   - lhci autorun # run lighthouse CI against your static site
