@@ -115,7 +115,7 @@ const ArticleMetaGhost = ({ data, settings, canonical, id }) => {
                     }
                 `}</script>
                 <script type="application/javascript">
-                    {`console.log("Called"); window.pageId="${articleId}"`}
+                    {`window.pageId="${articleId}"`}
                 </script>
             </Helmet>
             <ImageMeta image={shareImage} />

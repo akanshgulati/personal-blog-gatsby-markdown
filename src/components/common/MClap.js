@@ -276,7 +276,11 @@ export default class Clap extends React.Component {
         window.addEventListener(`scroll`, handleScroll)
 
         const userId = this.getUserId()
-        setTimeout(() => {
+        const checkPageIdCounter = setInterval(() => {
+            if (!window.pageId) {
+                return
+            }
+            clearInterval(checkPageIdCounter);
             const url = `${GetClap}?pageId=${window.pageId}&userId=${userId}`
             fetch(url).then(resp => resp.json()).then(resp => {
                 this.setState(function (prevState) {
@@ -286,6 +290,6 @@ export default class Clap extends React.Component {
                     }
                 })
             })
-        }, 100)
+        }, 1000);
     }
 }
