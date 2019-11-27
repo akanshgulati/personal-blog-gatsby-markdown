@@ -504,13 +504,13 @@ a {
 a:hover {
     text-decoration: underline;
 }
-.content-body a {
+.content-body a:not(.gatsby-resp-image-link) {
     color: rgba(0,0,0,.84);
     text-decoration: none;
     border-bottom: 1px solid rgba(0,0,0,.84);
     padding-bottom: 0px;
 }
-.content-body a:hover {
+.content-body a:not(.gatsby-resp-image-link):hover {
     text-decoration: none;
     border-bottom-color: #26a8ed;
 }
@@ -1228,7 +1228,7 @@ h6 {
 
 
 
-/* 
+/*
 Code Highlighter
  */
 
