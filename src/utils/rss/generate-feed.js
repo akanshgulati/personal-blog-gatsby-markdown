@@ -44,8 +44,6 @@ const generateItem = function generateItem(site, post) {
 }
 
 const generateRSSFeed = function generateRSSFeed(site) {
-
-
     return {
         serialize: ({ query: { site, allMarkdownRemark } }) => allMarkdownRemark.edges.map(edge => Object.assign({}, generateItem(site, edge.node))),
         setup: ({ query: { site } }) => {
