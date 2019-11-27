@@ -2,8 +2,8 @@
 tag_id: 'javascript'
 name: 'javascript'
 slug: 'javascript'
-description: 'How to related information for the blog'
-feature_image: https://featured-image.png
+description: 'Discussion on essential aspects of Javascript'
+feature_image: 
 meta_description: ''
 meta_title: ''
 visibility: 'public'
