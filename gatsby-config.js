@@ -143,15 +143,15 @@ module.exports = {
             options: {
                 query: `
                 {
-                    allGhostSettings {
-                        edges {
-                            node {
-                                title
-                                description
-                            }
-                        }
+                    site {
+                      siteMetadata {
+                        title
+                        description
+                        siteUrl
+                        site_url: siteUrl
+                      }
                     }
-                }
+                  }
               `,
                 feeds: [generateRSSFeed(config)],
             },
