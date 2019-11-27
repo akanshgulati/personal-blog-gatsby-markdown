@@ -1,25 +1,23 @@
 const cheerio = require(`cheerio`)
 const tagsHelper = require(`@tryghost/helpers`).tags
 const _ = require(`lodash`)
-
-const generateItem = function generateItem(post) {
-    const itemUrl = post.url
+const generateItem = function generateItem(siteConfig, post) {
+    const itemUrl = post.frontmatter.slug;
     const html = post.html
     const htmlContent = cheerio.load(html, { decodeEntities: false, xmlMode: true })
     const item = {
-        title: post.title,
+        title: post.frontmatter.title,
         description: post.excerpt,
-        guid: post.id,
+        guid: post.frontmatter.id,
         url: itemUrl,
-        date: post.published_at,
-        categories: _.map(tagsHelper(post, { visibility: `public`, fn: tag => tag }), `name`),
-        author: post.primary_author ? post.primary_author.name : null,
+        date: post.frontmatter.published_at,
+        author: post.frontmatter.author && post.frontmatter.author.frontmatter ? post.frontmatter.author.frontmatter.name : null,
         custom_elements: [],
     }
     let imageUrl
 
-    if (post.feature_image) {
-        imageUrl = post.feature_image
+    if (post.frontmatter.feature_image && post.frontmatter.feature_image.childImageSharp.fluid.src) {
+        imageUrl = siteConfig.siteUrl + post.frontmatter.feature_image.childImageSharp.fluid.src
 
         // Add a media content tag
         item.custom_elements.push({
@@ -44,76 +42,50 @@ const generateItem = function generateItem(post) {
     return item
 }
 
-const generateRSSFeed = function generateRSSFeed(siteConfig) {
+const generateRSSFeed = function generateRSSFeed() {
     return {
-        serialize: ({ query: { allGhostPost } }) => allGhostPost.edges.map(edge => Object.assign({}, generateItem(edge.node))),
-        setup: ({ query: { allGhostSettings } }) => {
-            const siteTitle = allGhostSettings.edges[0].node.title || `No Title`
-            const siteDescription = allGhostSettings.edges[0].node.description || `No Description`
-            const feed = {
-                title: siteTitle,
-                description: siteDescription,
-                // generator: `Ghost ` + data.safeVersion,
-                generator: `Ghost 2.9`,
-                feed_url: `${siteConfig.siteUrl}/rss/`,
-                site_url: `${siteConfig.siteUrl}/`,
-                image_url: `${siteConfig.siteUrl}/${siteConfig.siteIcon}`,
-                ttl: `60`,
-                custom_namespaces: {
-                    content: `http://purl.org/rss/1.0/modules/content/`,
-                    media: `http://search.yahoo.com/mrss/`,
-                },
-            }
-            return {
-                ...feed,
-            }
-        },
+        serialize: ({ query: { site, allMarkdownRemark } }) => allMarkdownRemark.edges.map(edge => Object.assign({}, generateItem(site, edge.node))),
         query: `
         {
-            allGhostPost(
-                sort: {order: DESC, fields: published_at}
-            ) {
-                edges {
-                    node {
-                        # Main fields
-                        id
-                        title
-                        slug
-                        featured
-                        feature_image
-
-                        # Dates unformatted
-                        created_at
-                        published_at
-                        updated_at
-
-                        # SEO
-                        excerpt
-                        meta_title
-                        meta_description
-
-                        # Authors
-                        authors {
-                            name
-                        }
-                        primary_author {
-                            name
-                        }
-                        tags {
-                            name
-                            visibility
-                        }
-
-                        # Content
-                        html
-
-                        # Additional fields
-                        url
+          allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {order: DESC, fields: frontmatter___created_at}) {
+            edges {
+              node {
+                id
+                frontmatter {
+                  title
+                  slug
+                  featured
+                  created_at
+                  published_at
+                  feature_image {
+                    id
+                    childImageSharp {
+                      fluid {
+                        src
+                      }
                     }
+                  }
+                  updated_at
+                  meta_title
+                  meta_description
+                  author {
+                    frontmatter {
+                      name
+                    }
+                  }
+                  tags {
+                    frontmatter {
+                      name
+                    }
+                  }
                 }
+                html
+                excerpt
+              }
             }
+          }
         }
-  `,
+    `,
         output: `/rss`,
     }
 }
