@@ -1,7 +1,8 @@
 const cheerio = require(`cheerio`)
 const tagsHelper = require(`@tryghost/helpers`).tags
 const _ = require(`lodash`)
-const generateItem = function generateItem(siteConfig, post) {
+const generateItem = function generateItem(site, post) {
+    const siteConfig = site.siteMetadata;
     const itemUrl = post.frontmatter.slug;
     const html = post.html
     const htmlContent = cheerio.load(html, { decodeEntities: false, xmlMode: true })
@@ -16,8 +17,8 @@ const generateItem = function generateItem(siteConfig, post) {
     }
     let imageUrl
 
-    if (post.frontmatter.feature_image && post.frontmatter.feature_image.childImageSharp.fluid.src) {
-        imageUrl = siteConfig.siteUrl + post.frontmatter.feature_image.childImageSharp.fluid.src
+    if (post.frontmatter.feature_image && post.frontmatter.feature_image.childImageSharp.fluid.originalImg) {
+        imageUrl = siteConfig.siteUrl + post.frontmatter.feature_image.childImageSharp.fluid.originalImg
 
         // Add a media content tag
         item.custom_elements.push({
@@ -42,9 +43,30 @@ const generateItem = function generateItem(siteConfig, post) {
     return item
 }
 
-const generateRSSFeed = function generateRSSFeed() {
+const generateRSSFeed = function generateRSSFeed(site) {
     return {
         serialize: ({ query: { site, allMarkdownRemark } }) => allMarkdownRemark.edges.map(edge => Object.assign({}, generateItem(site, edge.node))),
+        setup: ({ query: { site } }) => {
+            const siteConfig = site.siteMetadata;
+            const siteTitle = site.siteMetadata.title || `No Title`
+            const siteDescription = site.siteMetadata.description || `No Description`
+            const feed = {
+                title: siteTitle,
+                description: siteDescription,
+                generator: `Ghost 2.9`,
+                feed_url: `${siteConfig.siteUrl}/rss/`,
+                site_url: `${siteConfig.siteUrl}/`,
+                image_url: `${siteConfig.siteUrl}/${siteConfig.siteIcon}`,
+                ttl: `60`,
+                custom_namespaces: {
+                    content: `http://purl.org/rss/1.0/modules/content/`,
+                    media: `http://search.yahoo.com/mrss/`,
+                },
+            }
+            return {
+                ...feed,
+            }
+        },
         query: `
         {
           allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/posts/"}}, sort: {order: DESC, fields: frontmatter___created_at}) {
@@ -61,7 +83,7 @@ const generateRSSFeed = function generateRSSFeed() {
                     id
                     childImageSharp {
                       fluid {
-                        src
+                        originalImg
                       }
                     }
                   }
