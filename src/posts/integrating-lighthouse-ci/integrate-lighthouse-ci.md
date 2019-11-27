@@ -1,12 +1,12 @@
 ---
 title: 'Integrate Lighthouse CI with static site generators'
-date: 2019-11-22T00:00:00+05:30
+date: 2019-11-27T00:00:00+05:30
 draft: false
 feature_image: lighthouse-ci-with-jamstack-bg.jpg
 featured: false
-published_at: 2019-11-22T00:00:00+05:30
-updated_at: 2019-11-22T00:00:00+05:30
-created_at: 2019-11-22T00:00:00+05:30
+published_at: 2019-11-27T00:00:00+05:30
+updated_at: 2019-11-27T00:00:00+05:30
+created_at: 2019-11-27T00:00:00+05:30
 weight: 2
 page: false
 tags: 
