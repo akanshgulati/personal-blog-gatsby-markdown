@@ -3,32 +3,29 @@
     "collect": {
       "numberOfRuns": 2,
       "url": [
-        "http://localhost:8080/",
-        "http://localhost:8080/tag/javascript",
-        "http://localhost:8080/author/akansh",
-        "http://localhost:8080/essential-tools-and-services-for-student-developer/"
+        "http://localhost/",
+        "http://localhost/tag/javascript",
+        "http://localhost/author/akansh",
+        "http://localhost/essential-tools-and-services-for-student-developer/"
       ]
     },
     "assert": {
       "preset": "lighthouse:no-pwa",
       "assertions": {
         "first-contentful-paint": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 2500,
             "aggregationMethod": "optimistic"
           }
         ],
         "interactive": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 5000,
             "aggregationMethod": "optimistic"
           }
-        ],
-        "uses-text-compression": "off",
-        "uses-long-cache-ttl": "off",
-        "uses-http2": "off"
+        ]
       }
     },
     "upload": {
