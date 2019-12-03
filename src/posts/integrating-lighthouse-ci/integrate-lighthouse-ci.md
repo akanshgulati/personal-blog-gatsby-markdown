@@ -66,8 +66,6 @@ before_install:
 script:  
  - yarn run build # command in package.json to build your site  
 after_success:  
- - npx http-server -s -p 8080 ./public &
-  - lhci healthcheck --fatal  
   - lhci autorun # run lighthouse CI against your static site
   ```
 
@@ -84,10 +82,10 @@ Create file at the top level of the project and add below JSON configuration.
   "ci": {
     "collect": {
       "url": [
-        "<CHANGE URL>http://localhost:8080/",
-        "<CHANGE URL>http://localhost:8080/tag/javascript",
-        "<CHANGE URL>http://localhost:8080/author/akansh",
-        "<CHANGE URL>http://localhost:8080/essential-tools-and-services-for-student-developer/"
+        "<CHANGE URL>http://localhost/",
+        "<CHANGE URL>http://localhost/tag/javascript",
+        "<CHANGE URL>http://localhost/author/akansh",
+        "<CHANGE URL>http://localhost/essential-tools-and-services-for-student-developer/"
       ],
       "numberOfRuns": 2
     },
@@ -95,20 +93,19 @@ Create file at the top level of the project and add below JSON configuration.
       "preset": "lighthouse:recommended",
       "assertions": {
         "first-contentful-paint": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 2500,
             "aggregationMethod": "optimistic"
           }
         ],
         "interactive": [
-          "error",
+          "warn",
           {
             "maxNumericValue": 5000,
             "aggregationMethod": "optimistic"
           }
         ],
-        "uses-text-compression": "off",
         "uses-long-cache-ttl": "off",
         "uses-http2": "off"
       }
@@ -131,7 +128,7 @@ In this configuration we are setting three things:
         4. Post page - `/essential-tools-and-services-for-student-developer/`
     - numberOfRuns - number of times to run an audit for each URL for generic results (impacts your total test time)
 
-2. **Assertions**: You can use industry set rules a.k.a `presets` such as “lighthouse:all”, “lighthouse:no-pwa” or define each rule. You need to turn **“off”** a few rules (e.g. uses-http2) which cannot be checked on local Http server we are setting up on Travis CI. Read more about [presets](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/assertions.md#presets), [custom rules](https://github.com/GoogleChrome/lighthouse/blob/v5.5.0/lighthouse-core/config/default-config.js#L375-L407) and assertions [here](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/assertions.md).
+2. **Assertions**: You can use industry set rules a.k.a `presets` such as “lighthouse:all”, “lighthouse:no-pwa” or define each rule. You need to turn **“off”** a few rules (e.g. uses-http2) which cannot be checked on local Http server we are setting up on Travis CI. Read more about [presets](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/assertions.md#presets), [custom rules](https://github.com/GoogleChrome/lighthouse/blob/v5.5.0/lighthouse-core/config/default-config.js#L375-L407) and [assertions](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/assertions.md). If you're a performance measurement pro and comfortable with variance, consider setting `first-contentful-paint` and `interactive` assertions to `error` in the example above to really lock down your website's perf.
 3.  **Upload**: Used to define where result web pages are to be uploaded. Currently, we are temporarily storing it on Google servers. Read more about upload [here](https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/getting-started.md#the-lighthouse-ci-server).
 
   
