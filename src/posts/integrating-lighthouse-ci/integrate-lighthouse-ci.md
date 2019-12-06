@@ -87,7 +87,8 @@ Create file at the top level of the project and add below JSON configuration.
         "<CHANGE URL>http://localhost/author/akansh",
         "<CHANGE URL>http://localhost/essential-tools-and-services-for-student-developer/"
       ],
-      "numberOfRuns": 2
+      "numberOfRuns": 2,
+      "staticDistDir": "./public"
     },
     "assert": {
       "preset": "lighthouse:recommended",
