@@ -161,3 +161,5 @@ In this configuration we are setting three things:
 ## Extra
 - [Lighthouse JSON Viewer](https://googlechrome.github.io/lighthouse/viewer/ ) - View report of Lighthouse from JSON
 - Disable Merge on assertion fail - You can setup rules in repository settings for **branch** and make Lighthouse builds mandatory before merge. 
+
+Thanks to [@patrickhulce](https://github.com/patrickhulce) for suggesting [inputs](https://github.com/akanshgulati/personal-blog-gatsby-markdown/pull/10) to make blog post in line with official Lighthouse CI guidelines. 
