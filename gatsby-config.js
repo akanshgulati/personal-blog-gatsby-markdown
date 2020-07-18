@@ -79,6 +79,12 @@ module.exports = {
                             rel: null,
                         },
                     },
+                    {
+                        resolve: `gatsby-remark-copy-linked-files`,
+                        options: {
+                            destinationDir: `extra`,
+                        },
+                    },
                 ],
             },
         },
