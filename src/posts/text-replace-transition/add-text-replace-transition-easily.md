@@ -101,8 +101,8 @@ You can read more about transitions and modes in-depth [here](https://vuejs.org/
 Unlike Vue, in React, we have to import a separate transition library, [react-transition-group](https://reactcommunity.org/react-transition-group/)
  which provides specific Component wrappers like CSSTransition, Transition, SwitchTransition and TransitionGroup. 
 
-For text replace specifically, we need two components, `CSSTransition` and `SwitchTransition`. It also has 3 stages of 
-the text transition in both entering and leaving transition states just live Vue. Refer to below diagram to understand the classes.
+For text replace transition specifically, we need two components, `CSSTransition` and `SwitchTransition`. It also has 3 stages of 
+the text transition in both entering and leaving transition states just like Vue. Refer to below diagram to understand the classes.
 ![react transitioning classes](./react-transition-classes.jpg)
 
 ### CSSTransition 
@@ -117,8 +117,8 @@ It handles the transition on the content, like the timeout, transition class nam
  no direct prop or method to trigger such functionality. You can read more about its various options [here](http://reactcommunity.org/react-transition-group/css-transition).
 
 ### SwitchTransition 
-Similar to Vue, we need to specifically select the `out-in` mode for letting the old content be taken out of DOM before new 
-content comes. For that, we need to use this separate component. You can read more about its various options [here](http://reactcommunity.org/react-transition-group/switch-transition)
+Similar to Vue, we need to specifically select the `out-in` mode for letting the old content transition to be over before new 
+content transition kicks-off. For that, we need to use this separate component. You can read more about its various options [here](http://reactcommunity.org/react-transition-group/switch-transition)
 
 
 <iframe
@@ -133,12 +133,12 @@ content comes. For that, we need to use this separate component. You can read mo
 
 ## Vanilla JS Implementation
 
-We are removing and adding the same `fade` class with changed text content and using innerHTML method which repaints
- the content showing the animation. 
+We are removing and adding the same `fade` class with changed text content and using `innerHTML` which repaints
+ the content enabling the transition effect (called as forced reflow). 
 
 > By default, we add a fade out related properties to `.text` class so
-> that once the `fade` class is removed, it can work just like
-> `fade-leave-active` in Vue or `fade-exit-active` in React.
+> that once the fade class is removed, it can work just like
+> 'fade-leave-active' in Vue or 'fade-exit-active' in React.
 
 
 There are two methods by which you can add transition: 
@@ -158,4 +158,4 @@ callback to prevent any [jank-like](https://googlechrome.github.io/devtools-samp
    ></iframe>
 
 <br/>
-Hope you got some basic idea about how implementation is different as per framework and in vanilla JS. 
+Hope you got some basic idea about how implementation is different as per framework and in vanilla JS. Do share your queries in comment section below.  
