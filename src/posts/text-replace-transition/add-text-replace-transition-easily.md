@@ -20,42 +20,42 @@ meta_description: ''
 id: 'text-change-transitions-react-vue'
 ---
 
-Text transitions are usually preferred when you need to notify user of any text 
-being changed on screen and it just not make experience better, but, also 
-important when text values changes on the basis of the user actions on the screen.
+Text transitions are usually preferred when you need to notify a user of any text 
+being changed on screen and it just not make the experience better, but, also 
+important when text content on website changes based on the user actions on the screen.
 
 > For example, if you're on an e-commerce website and read the price of
 > an item, but, you changed the quantity of the item and suddenly your
 > shipping charges are increased, making it important to highlight those
-> changes to user.
+> changes to the user.
 
-I believe this is one of the use-case where text transitions are required, 
-also, React and Vue frameworks supports Hot Module Replacement, updating only the 
+I believe this is one of the use-cases where text transitions are required, 
+also, React and Vue frameworks support Hot Module Replacement, updating only the 
 particular modules. See the example below to understand how simple text transition can 
-have impact on user experience. 
+have an impact on user experience. 
 
 For example: 
 
 ![animated correct ](./animation-correct.gif)
 
-You can clearly observe the difference when the UI has no transition, we might have missed the change in the heading at first look. 
+You can observe the difference when the UI has no transition, we might have missed the change in the heading at first look. 
 
-Before we start with any framework, following things are common among various frameworks for transitions in entering and leaving transition states:
+Before we start with any framework, the following things are common among various frameworks for transitions in entering and leaving transition states:
 
 ### Transition Stages
 
 There are three stages in each state of transitioning, initial stage, transitioning stage and transition done stage, 
-giving us total 3+3 stages for entering and leaving all together. The naming convention may vary with different framework, 
+giving us total 3+3 stages for entering and leaving altogether. The naming convention may vary with a different framework, 
 see in below image for better understanding.
 
 <img align="center" src="./transitioning-stages.png" alt="three-stages-of-transition"></img>
  
 ### Transition Triggers
-In order to trigger transition, there are multiple ways, a few of them are as followed:
+To trigger the transition, there are multiple ways, a few of them are as followed:
 1. Adding/Removing a node from the DOM tree
-2. Showing and hiding a node from UI (using display : none)
+2. Showing and hiding a node from UI (using display: none)
 3. Adding/Removing items into the list
-4. Dynamically updating current node with a new node
+4. Dynamically updating the current node with a new node
 
 For **text replace** transition, we will be using Dynamic node updating criteria where a new node/text content 
 takes place of the old node/text content. 
@@ -69,22 +69,22 @@ or a parent node wrapping multiple nodes. Refer below image for different classe
 
 ![animated correct ](./vue-transition-classes.jpg)
 
-As mentioned above in Transition triggers section, we will using Dynamic Component loading for text change transition 
+We will use Dynamic Component loading, mentioned above as one of the Transition triggers, for text change transition 
 using `key` attribute to inform Vue of any change in node/content. 
 
 Once we implement this, we see transitioning working as below: 
 
 <img align="center" src="vue-transition-without-mode.gif" alt="vue-transition-default-mode" style="display: block; margin: 0 auto;"></img>
 
-You can see clearly that this is **NOT** what we desire, the problem is that new text content is coming before the previous 
+You can see that this is **NOT** what we desire, the problem is that the new text content is coming before the previous 
 text content is hidden and due to this, both contents are visible for a fraction of second during transitioning.
 This is what we call as `in-out` mode, which is set by default.
 
 **How to solve this flickering issue?**
 
-In order to make this transition smooth, we have to make sure that the transition of old text content is completed 
-before new content transition starts. For that we specify mode as `out-in` to prevent flickering. 
-You can read more about transitions and modes in depth [here](https://vuejs.org/v2/guide/transitions.html).
+To make this transition smooth, we have to make sure that the transition of old text content is completed 
+before new content transition starts. For that, we specify mode as `out-in` to prevent flickering. 
+You can read more about transitions and modes in-depth [here](https://vuejs.org/v2/guide/transitions.html).
 
 
 <iframe src="https://codesandbox.io/embed/vue-text-transition-example-nlvog?fontsize=14&hidenavigation=1&theme=dark"
@@ -108,16 +108,16 @@ the text transition in both entering and leaving transition states just live Vue
 ### CSSTransition 
 It handles the transition on the content, like the timeout, transition class name, etc., It has support for following props: 
 
-1. **Timeout**: You can define the timeout of the entering and leaving transition separately or as a common numeric time period in milliseconds. 
+1. **Timeout**: You can define the timeout of the entering and leaving transition separately or as a common numeric time in milliseconds. 
 2. **addEndListener**: You can define the method here for ending the transition. 
-3. **ClassNames**: The name has been set as plural (with s), just to not mix it with React default way of adding class 
- on any node using className. This lets you define the parent class which will be used to define the transition. **Another** important difference in CSSTransition component is that is applies transition classes in pairs during the initial stage of entering and leaving. 
+3. **ClassNames**: The name has been set as plural (with s), just to not mix it with React default way of adding CSS classes 
+ on any node using className. This lets you define the parent class which will be used to define the transition. 
 4. **In**: This prop lets you state when the transition classes are to be applied on the node/text content. It's a sort 
- of switch with which you can turn on and off transition effects dynamically on DOM.  Vue's `<Transiton>` component has 
+ of switch to turn on and off transition effects dynamically on DOM.  Vue's `<Transiton>` component has 
  no direct prop or method to trigger such functionality. You can read more about its various options [here](http://reactcommunity.org/react-transition-group/css-transition).
 
 ### SwitchTransition 
-Similar to Vue, we need to specifically select `out-in` mode for letting the old content be taken out of DOM before new 
+Similar to Vue, we need to specifically select the `out-in` mode for letting the old content be taken out of DOM before new 
 content comes. For that, we need to use this separate component. You can read more about its various options [here](http://reactcommunity.org/react-transition-group/switch-transition)
 
 
@@ -134,20 +134,20 @@ content comes. For that, we need to use this separate component. You can read mo
 ## Vanilla JS Implementation
 
 We are removing and adding the same `fade` class with changed text content and using innerHTML method which repaints
- the content again showing the animation. 
+ the content showing the animation. 
 
-> By default, we add fade out related properties to `.text` class so
-> that once `fade` class is removed, it can work just like
+> By default, we add a fade out related properties to `.text` class so
+> that once the `fade` class is removed, it can work just like
 > `fade-leave-active` in Vue or `fade-exit-active` in React.
 
 
 There are two methods by which you can add transition: 
-1. **Timeout Centric**: In this you have to manually mention the timeout of the leaving 
+1. **Timeout Centric**: In this, you have to manually mention the timeout of the leaving 
 state of the transition. This is not a recommended way, because same time needs to be 
-entered in CSS styles. The timeout part is being handled with `setTimeout` method and `requestAnimationFrame` 
+entered in CSS styles. The timeout part is being handled with the `setTimeout` method and `requestAnimationFrame` 
 callback to prevent any [jank-like](https://googlechrome.github.io/devtools-samples/jank/) (drop in frame rate) experience. 
 
-2. **CSS Centric**: Here we leverage `transitionend` JS listener which updates when transition is over serving the purpose of timeout being used above. 
+2. **CSS Centric**: Here we leverage `transitionend` JS event listener which updates when the one state of transition is over serving the purpose of timeout being used above. 
 
 <iframe
      src="https://codesandbox.io/embed/vanilla-js-text-transition-example-hc7kq?fontsize=14&hidenavigation=1&theme=dark&view=preview"
