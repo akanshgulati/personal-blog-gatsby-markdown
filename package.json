@@ -29,7 +29,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:server": "netlify-lambda serve src/lambda",
     "build:server": "netlify-lambda build src/lambda",
-    "start": "concurrently 'yarn dev' 'yarn start:server'"
+    "start": "concurrently 'yarn dev' 'yarn start:server'",
+    "lighthouse": "npx http-server -p 8080 &; lhci autorun"
   },
   "devDependencies": {
     "@mojs/core": "^0.288.2",

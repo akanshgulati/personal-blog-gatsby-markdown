@@ -75,5 +75,6 @@ yarn-error.log
 
 #lambda
 lambda
+
 #lighthouse
 .lighthouseci
