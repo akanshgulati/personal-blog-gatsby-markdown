@@ -62,7 +62,7 @@
     "gatsby-remark-prismjs": "^3.2.10",
     "gatsby-source-filesystem": "2.0.37",
     "gatsby-source-ghost": "4.0.5",
-    "gatsby-transformer-remark": "^2.3.12",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "2.1.19",
     "lodash": "4.17.13",
     "mongodb": "^3.3.3",
